@@ -54,4 +54,6 @@ For every key, you can pass a custom folder and a custom glob.
 
 Additionally, the plugin also updated paths of source-maps to match the updated folder structure.
 
+To turn the plugin off, you can also set `"parcel-plugin-structurize": false` in your `package.json`.
+
 [parcel]: "https://parceljs.org"
