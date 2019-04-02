@@ -1,0 +1,13 @@
+{
+    "name": "parcel-plugin-structurize",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.16.0",
+        "eslint-config-prettier": "^4.1.0",
+        "eslint-plugin-import": "^2.16.0",
+        "eslint-plugin-prettier": "^3.0.1"
+    }
+}
