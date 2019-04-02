@@ -4,9 +4,12 @@ const move = require('glob-move');
 const chalk = require('chalk');
 const rewriteCSSUrls = require('css-url-rewrite');
 
-module.exports = ({ dist, prefix, options, markups }) => {
+const { isNotRemote, extractFileName } = require('../util');
+
+module.exports = function({ dist, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
+
         move(`${dist}/${match}`, `${dist}/${folder}`)
             .then(() => {
                 markups.forEach(async document => {
@@ -17,10 +20,7 @@ module.exports = ({ dist, prefix, options, markups }) => {
                     const path = [prefix, folder].join('/');
 
                     await allAssets.forEach(image => {
-                        const src = image
-                            .getAttribute('src')
-                            .split('/')
-                            .pop();
+                        const src = extractFileName(image.getAttribute('src'));
                         image.setAttribute('src', `${path}/${src}`);
                     });
 
@@ -28,13 +28,12 @@ module.exports = ({ dist, prefix, options, markups }) => {
                         if (style.tagName === 'LINK') {
                             const filePath = Path.join(
                                 dist,
-                                style.href.split('/').pop()
+                                extractFileName(style.href)
                             );
                             if (fs.existsSync(filePath)) {
                                 let content = await fs
                                     .readFileSync(filePath)
                                     .toString();
-                                console.log('path', path);
                                 content = rewriteUrls(content, path);
                                 await fs.writeFileSync(filePath, content);
                             }
@@ -65,13 +64,7 @@ module.exports = ({ dist, prefix, options, markups }) => {
 
 function rewriteUrls(string, path) {
     return rewriteCSSUrls(string, url => {
-        if (
-            !(
-                url.includes('http:') ||
-                url.includes('https:') ||
-                url.includes('//')
-            )
-        ) {
+        if (isNotRemote(url)) {
             return `${path}/${url.split('/').pop()}`;
         }
 
