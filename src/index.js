@@ -2,6 +2,8 @@ const Path = require('path');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
+const { extractFileName } = require('./util');
+
 function Structurize(bundler) {
     if (process.env.NODE_ENV === 'production') {
         const defaultConfig = require('./default.structure.json');
@@ -33,9 +35,7 @@ function Structurize(bundler) {
             bundler.on('buildEnd', async () => {
                 const markupFiles = entryFiles
                     .filter(file => /\.html$/.test(file))
-                    .map(file => {
-                        return file.split('/').pop();
-                    });
+                    .map(file => extractFileName(file));
                 const markups = markupFiles.map(
                     file =>
                         new JSDOM(fs.readFileSync(Path.join(DIST_PATH, file)))
