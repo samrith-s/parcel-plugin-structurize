@@ -1,10 +1,10 @@
 {
     "scripts": {
-        "match": "*.js",
+        "match": "*.{js,js.map}",
         "folder": "js"
     },
     "styles": {
-        "match": "*.css",
+        "match": "*.{css,css.map}",
         "folder": "css"
     },
     "assets": {
