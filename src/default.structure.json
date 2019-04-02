@@ -1,0 +1,14 @@
+{
+    "scripts": {
+        "match": "*.js",
+        "folder": "js"
+    },
+    "styles": {
+        "match": "*.css",
+        "folder": "css"
+    },
+    "assets": {
+        "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
+        "folder": "assets"
+    }
+}
