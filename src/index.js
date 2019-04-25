@@ -3,13 +3,14 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 const { extractFileName } = require('./util');
+const { name } = require('../package.json');
 
 function Structurize(bundler) {
     if (process.env.NODE_ENV === 'production') {
         const defaultConfig = require('./default.structure.json');
-        const {
-            ['parcel-plugin-structurize']: packageConfig
-        } = require(Path.resolve('./package.json'));
+        const { [name]: packageConfig } = require(Path.resolve(
+            './package.json'
+        ));
 
         if (packageConfig !== false) {
             const {
