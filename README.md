@@ -46,14 +46,16 @@ To configure the plugin, add `parcel-plugin-structurize` as a key to your `packa
 }
 ```
 
-For every key, you can pass a custom folder and a custom glob.
+Right now, the plugin only supports `scripts`, `styles` and `assets`. Please feel free to raise a PR to add support for other types (example: `fonts`)!
+
+For the supported keys, you can pass a custom folder and a custom glob:
 
 -   `assets`: Denotes ONLY images. Updates every `img` tag in all your HTML files.
 -   `scripts`: Denotes ONLY JavaScript files. Updates every `script` tag in all your HTML files.
--   `styles`: Denotes ONLY stylesheets. Updated every `style` and `link` tag in all your HTML files.
+-   `styles`: Denotes ONLY stylesheets. Updates every `style` and `link` tag in all your HTML files.
 
-Additionally, the plugin also updated paths of source-maps to match the updated folder structure.
+Additionally, the plugin also updates paths of source-maps to match the updated folder structure.
 
 To turn the plugin off, you can also set `"parcel-plugin-structurize": false` in your `package.json`.
 
-[parcel]: "https://parceljs.org"
+[parcel]: https://parceljs.org
