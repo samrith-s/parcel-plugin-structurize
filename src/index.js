@@ -14,9 +14,8 @@ function Structurize(bundler) {
 
         if (packageConfig !== false) {
             const {
-                options: { outDir, publicURL, entryFiles }
+                options: { outDir: DIST_PATH, publicURL, entryFiles }
             } = bundler;
-            const DIST_PATH = Path.resolve(outDir);
             const config = {
                 ...defaultConfig,
                 ...packageConfig
