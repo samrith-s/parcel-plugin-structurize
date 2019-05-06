@@ -1,6 +1,6 @@
 {
     "name": "parcel-plugin-structurize",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Samrith Shankar <samrith@outlook.com> (https://twitter.com/tueieo)",
     "license": "MIT",
     "main": "src/index.js",
