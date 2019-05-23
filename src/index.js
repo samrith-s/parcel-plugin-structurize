@@ -14,7 +14,7 @@ function Structurize(bundler) {
 
         if (packageConfig !== false) {
             const {
-                options: { outDir: DIST_PATH, publicURL, entryFiles }
+                options: { outDir: DIST_PATH, publicURL }
             } = bundler;
             const config = {
                 ...defaultConfig,
@@ -33,13 +33,15 @@ function Structurize(bundler) {
             });
 
             bundler.on('buildEnd', async () => {
-                const markupFiles = entryFiles
-                    .filter(file => /\.html$/.test(file))
-                    .map(file => extractFileName(file));
+                const markupFiles = [...bundler.loadedAssets]
+                    .filter(file => /\.html$/.test(file[0]))
+                    .map(file => extractFileName(file[0]));
+
                 const markups = markupFiles.map(
                     file =>
-                        new JSDOM(fs.readFileSync(Path.join(DIST_PATH, file)))
-                            .window.document
+                        new JSDOM(
+                            fs.readFileSync(Path.resolve(DIST_PATH, file))
+                        ).window.document
                 );
 
                 for (let [structurer, options] of configEntries) {
@@ -53,7 +55,7 @@ function Structurize(bundler) {
 
                 markupFiles.forEach((file, index) => {
                     fs.writeFileSync(
-                        Path.join(DIST_PATH, file),
+                        Path.resolve(DIST_PATH, file),
                         markups[index].documentElement.outerHTML
                     );
                 });
