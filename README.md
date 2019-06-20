@@ -1,6 +1,9 @@
 # parcel-plugin-structurize
 
+[![npm badge](https://img.shields.io/npm/v/parcel-plugin-structurize.svg)](https://www.npmjs.com/package/parcel-plugin-structurize)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d17ed96821dc491b81ae0de1ebb1ce8e)](https://app.codacy.com/app/samrith/parcel-plugin-structurize?utm_source=github.com&utm_medium=referral&utm_content=samrith-s/parcel-plugin-structurize&utm_campaign=Badge_Grade_Dashboard)
+[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/samrith-s)
+[![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith)
 
 A [Parcel][parcel] plugin that lets you organize your build directory into any structure.
 
