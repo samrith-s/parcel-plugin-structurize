@@ -6,13 +6,26 @@ const { extractFileName } = require('./util');
 const { name } = require('../package.json');
 
 function Structurize(bundler) {
-    if (process.env.NODE_ENV === 'production') {
-        const defaultConfig = require('./default.structure.json');
-        const { [name]: packageConfig } = require(Path.resolve(
-            './package.json'
-        ));
+    const defaultConfig = require('./default.structure.json');
+    const { [name]: packageConfig } = require(Path.resolve(
+        './package.json'
+    ));
+    let shouldRun = false;
 
-        if (packageConfig !== false) {
+    if (packageConfig !== false) {
+        // default NODE_ENV could be undefined hence the OR clause, see https://stackoverflow.com/a/31611428
+        // checks if NODE_ENV is 'development' and if it is undefined assign it 'development'
+        if (packageConfig.mode === 'development' && ((current_NODE_ENV = process.env.NODE_ENV || 'development') === 'development')) {
+            shouldRun = true;
+            delete packageConfig.mode;
+        } else if (((packageConfigMode = packageConfig.mode || 'production') === 'production') && process.env.NODE_ENV === 'production') {
+            shouldRun = true;
+            delete packageConfig.mode;
+        } else if (packageConfig.mode === 'both') {
+            shouldRun = true;
+            delete packageConfig.mode;
+        }
+        if (shouldRun) {
             const {
                 options: { outDir: DIST_PATH, publicURL }
             } = bundler;

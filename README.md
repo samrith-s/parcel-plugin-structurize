@@ -4,9 +4,9 @@ A [Parcel][parcel] plugin that lets you organize your build directory into any s
 
 ## Why?
 
-Currently, Parcel builds everything for production in a flat structure. Sometimes, we might need a particular structure or might just prefer having a structure in the build folder.
+Currently, Parcel builds everything in a flat structure. Sometimes, we might need a particular structure or might just prefer having a structure in the build folder.
 
-This plugin runs only in `build` and let's you organize your scripts, styles and assets into folders.
+This plugin runs in `build, watch, and serve` (determined by the `mode` config variable) and let's you organize your scripts, styles and assets into folders.
 
 ## Getting Started
 
@@ -30,6 +30,7 @@ To configure the plugin, add `parcel-plugin-structurize` as a key to your `packa
 {
     "name": "my-parcel-project",
     "parcel-plugin-structurize": {
+        "mode": "both",
         "scripts": {
             "match": "*.{js,js.map}",
             "folder": "js"
@@ -48,6 +49,9 @@ To configure the plugin, add `parcel-plugin-structurize` as a key to your `packa
 
 Right now, the plugin only supports `scripts`, `styles` and `assets`. Please feel free to raise a PR to add support for other types (example: `fonts`)!
 
+Mode can have three options: 'production', 'development' or 'both'. Defaults to production.
+Mode is determined based on NODE_ENV. If NODE_ENV is not set, it defaults to 'development'.
+If mode is not set, it defaults to 'production' i.e. only during `parcel build` 
 For the supported keys, you can pass a custom folder and a custom glob:
 
 -   `assets`: Denotes ONLY images. Updates every `img` tag in all your HTML files.
