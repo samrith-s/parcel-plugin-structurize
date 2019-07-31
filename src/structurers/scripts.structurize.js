@@ -17,17 +17,27 @@ module.exports = function({ dist, prefix, options, markups }) {
                     const path = `${prefix}/${folder}/`;
 
                     await allScripts.forEach(async script => {
-                        const oldFilePath = script.src;
-                        const fileName = extractFileName(oldFilePath);
-                        const scriptPath = Path.join(dist, folder, fileName);
-                        const content = await fs
-                            .readFileSync(scriptPath)
-                            .toString();
-                        script.src = `${path}${extractFileName(script.src)}`;
-                        fs.writeFileSync(
-                            scriptPath,
-                            content.replace(oldFilePath, script.src)
-                        );
+                        try {
+                            const oldFilePath = script.src;
+                            const fileName = extractFileName(oldFilePath);
+                            const scriptPath = Path.join(
+                                dist,
+                                folder,
+                                fileName
+                            );
+                            const content = await fs
+                                .readFileSync(scriptPath)
+                                .toString();
+                            script.src = `${path}${extractFileName(
+                                script.src
+                            )}`;
+                            fs.writeFileSync(
+                                scriptPath,
+                                content.replace(oldFilePath, script.src)
+                            );
+                        } catch (e) {
+                            throw e;
+                        }
                     });
                 });
 

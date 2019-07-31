@@ -18,31 +18,34 @@ module.exports = function({ dist, prefix, options, markups }) {
                         'style, link'
                     );
                     const path = [prefix, folder].join('/');
-
                     await allAssets.forEach(image => {
                         const src = extractFileName(image.getAttribute('src'));
                         image.setAttribute('src', `${path}/${src}`);
                     });
 
                     await allStyles.forEach(async style => {
-                        if (style.tagName === 'LINK') {
-                            const filePath = Path.join(
-                                dist,
-                                extractFileName(style.href)
-                            );
-                            if (fs.existsSync(filePath)) {
-                                let content = await fs
-                                    .readFileSync(filePath)
-                                    .toString();
-                                content = rewriteUrls(content, path);
-                                await fs.writeFileSync(filePath, content);
+                        try {
+                            if (style.tagName === 'LINK') {
+                                const filePath = Path.join(
+                                    dist,
+                                    extractFileName(style.href)
+                                );
+                                if (fs.existsSync(filePath)) {
+                                    let content = await fs
+                                        .readFileSync(filePath)
+                                        .toString();
+                                    content = rewriteUrls(content, path);
+                                    await fs.writeFileSync(filePath, content);
+                                }
+                            } else {
+                                style.textContent = rewriteUrls(
+                                    style.textContent,
+                                    path,
+                                    ''
+                                );
                             }
-                        } else {
-                            style.textContent = rewriteUrls(
-                                style.textContent,
-                                path,
-                                ''
-                            );
+                        } catch (e) {
+                            throw e;
                         }
                     });
                 });
