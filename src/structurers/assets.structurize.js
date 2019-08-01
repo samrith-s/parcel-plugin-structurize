@@ -13,14 +13,23 @@ module.exports = function({ dist, prefix, options, markups }) {
         move(`${dist}/${match}`, `${dist}/${folder}`)
             .then(() => {
                 markups.forEach(async document => {
-                    const allAssets = await document.querySelectorAll(`img`);
+                    const allAssets = await document.querySelectorAll(
+                        `img, link[rel*="icon"]`
+                    );
                     const allStyles = await document.querySelectorAll(
                         'style, link'
                     );
                     const path = [prefix, folder].join('/');
                     await allAssets.forEach(image => {
-                        const src = extractFileName(image.getAttribute('src'));
-                        image.setAttribute('src', `${path}/${src}`);
+                        let attrValue = 'src';
+                        if (image.tagName === 'LINK') {
+                            attrValue = 'href';
+                        }
+
+                        const src = extractFileName(
+                            image.getAttribute(attrValue)
+                        );
+                        image.setAttribute(attrValue, `${path}/${src}`);
                     });
 
                     await allStyles.forEach(async style => {

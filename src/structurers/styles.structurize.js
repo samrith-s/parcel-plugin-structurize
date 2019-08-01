@@ -12,7 +12,9 @@ module.exports = function({ dist, prefix, options, markups }) {
         move(`${dist}/${match}`, `${dist}/${folder}`)
             .then(async () => {
                 await markups.forEach(async document => {
-                    const allStyles = document.querySelectorAll('link');
+                    const allStyles = document.querySelectorAll(
+                        'link[rel="stylesheet"]'
+                    );
 
                     const path = `${prefix}/${folder}/`;
 

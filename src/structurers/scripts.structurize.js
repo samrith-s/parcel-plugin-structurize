@@ -12,7 +12,7 @@ module.exports = function({ dist, prefix, options, markups }) {
         move(`${dist}/${match}`, `${dist}/${folder}`)
             .then(async () => {
                 await markups.forEach(async document => {
-                    const allScripts = document.querySelectorAll('script');
+                    const allScripts = document.querySelectorAll('script[src]');
 
                     const path = `${prefix}/${folder}/`;
 
