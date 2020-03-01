@@ -14,7 +14,7 @@ module.exports = function({ dist, prefix, options, markups }) {
             .then(() => {
                 markups.forEach(async document => {
                     const allAssets = await document.querySelectorAll(
-                        `img, link[rel*="icon"]`
+                        `img, source, link[rel*="icon"]`
                     );
                     const allStyles = await document.querySelectorAll(
                         'style, link'
@@ -22,9 +22,8 @@ module.exports = function({ dist, prefix, options, markups }) {
                     const path = [prefix, folder].join('/');
                     await allAssets.forEach(image => {
                         let attrValue = 'src';
-                        if (image.tagName === 'LINK') {
-                            attrValue = 'href';
-                        }
+                        if (image.tagName === 'SOURCE') attrValue = 'srcset';
+                        if (image.tagName === 'LINK') attrValue = 'href';
 
                         const src = extractFileName(
                             image.getAttribute(attrValue)
