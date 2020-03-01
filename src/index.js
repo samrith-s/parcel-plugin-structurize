@@ -2,7 +2,6 @@ const Path = require('path');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
-const { extractFileName } = require('./util');
 const { name } = require('../package.json');
 
 function Structurize(bundler) {
@@ -35,7 +34,7 @@ function Structurize(bundler) {
             bundler.on('buildEnd', async () => {
                 const markupFiles = [...bundler.bundleNameMap]
                     .filter(file => /\.html$/.test(file[1]))
-                    .map(file => extractFileName(file[1]));
+                    .map(file => Path.basename(file[1]));
 
                 const markups = markupFiles.map(
                     file =>

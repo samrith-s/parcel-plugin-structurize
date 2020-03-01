@@ -6,11 +6,6 @@ function isNotRemote(url) {
     );
 }
 
-function extractFileName(path = '') {
-    return path.split('/').pop();
-}
-
 module.exports = {
     isNotRemote,
-    extractFileName
 };

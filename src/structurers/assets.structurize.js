@@ -4,55 +4,48 @@ const move = require('glob-move');
 const chalk = require('chalk');
 const rewriteCSSUrls = require('css-url-rewrite');
 
-const { isNotRemote, extractFileName } = require('../util');
+const { isNotRemote } = require('../util');
 
 module.exports = function({ dist, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
 
-        move(`${dist}/${match}`, `${dist}/${folder}`)
+        move(Path.resolve(dist, match), Path.resolve(dist, folder))
             .then(() => {
                 markups.forEach(async document => {
                     const allAssets = await document.querySelectorAll(
                         `img, link[rel*="icon"]`
                     );
                     const allStyles = await document.querySelectorAll(
-                        'style, link'
+                        'style, link[rel="stylesheet"]'
                     );
-                    const path = [prefix, folder].join('/');
+                    const path = Path.resolve(prefix, folder);
+
                     await allAssets.forEach(image => {
                         let attrValue = 'src';
                         if (image.tagName === 'LINK') {
                             attrValue = 'href';
                         }
 
-                        const src = extractFileName(
-                            image.getAttribute(attrValue)
-                        );
-                        image.setAttribute(attrValue, `${path}/${src}`);
+                        const fileName = Path.basename(image[attrValue]);
+
+                        return image[attrValue] = Path.resolve(path, fileName);
                     });
 
                     await allStyles.forEach(async style => {
+                        if (style.tagName === 'STYLE') {
+                            return style.textContent = rewriteUrls(style.textContent, path);
+                        }
+                        if (!isNotRemote(style.href)) return;
+
+                        const filePath = Path.resolve(dist, Path.basename(style.href));
+
                         try {
-                            if (style.tagName === 'LINK') {
-                                const filePath = Path.join(
-                                    dist,
-                                    extractFileName(style.href)
-                                );
-                                if (fs.existsSync(filePath)) {
-                                    let content = await fs
-                                        .readFileSync(filePath)
-                                        .toString();
-                                    content = rewriteUrls(content, path);
-                                    await fs.writeFileSync(filePath, content);
-                                }
-                            } else {
-                                style.textContent = rewriteUrls(
-                                    style.textContent,
-                                    path,
-                                    ''
-                                );
-                            }
+                            let content = fs.readFileSync(filePath);
+                            content = content.toString();
+                            content = rewriteUrls(content, path);
+
+                            return fs.writeFileSync(filePath, content);
                         } catch (e) {
                             throw e;
                         }
@@ -76,10 +69,7 @@ module.exports = function({ dist, prefix, options, markups }) {
 
 function rewriteUrls(string, path) {
     return rewriteCSSUrls(string, url => {
-        if (isNotRemote(url)) {
-            return `${path}/${url.split('/').pop()}`;
-        }
-
-        return url;
+        if (!isNotRemote(url)) return url;
+        return Path.resolve(path, Path.basename(url));
     });
 }
