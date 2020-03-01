@@ -3,38 +3,31 @@ const fs = require('fs');
 const move = require('glob-move');
 const chalk = require('chalk');
 
-const { extractFileName } = require('../util');
 
 module.exports = function({ dist, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
 
-        move(`${dist}/${match}`, `${dist}/${folder}`)
+        move(Path.resolve(dist, match), Path.resolve(dist, folder))
             .then(async () => {
                 await markups.forEach(async document => {
                     const allScripts = document.querySelectorAll('script[src]');
-
-                    const path = `${prefix}/${folder}/`;
+                    const path = Path.resolve(prefix, folder);
 
                     await allScripts.forEach(async script => {
+                        const oldFilePath = script.src;
+                        const fileName = Path.basename(oldFilePath);
+                        const scriptPath = Path.resolve(dist, folder, fileName);
+
+                        script.src = Path.resolve(path, fileName);
+
                         try {
-                            const oldFilePath = script.src;
-                            const fileName = extractFileName(oldFilePath);
-                            const scriptPath = Path.join(
-                                dist,
-                                folder,
-                                fileName
-                            );
-                            const content = await fs
-                                .readFileSync(scriptPath)
-                                .toString();
-                            script.src = `${path}${extractFileName(
-                                script.src
-                            )}`;
-                            fs.writeFileSync(
-                                scriptPath,
-                                content.replace(oldFilePath, script.src)
-                            );
+                            let content = await fs.readFileSync(scriptPath);
+                            content = content
+                                .toString()
+                                .replace(oldFilePath, script.src);
+
+                            return fs.writeFileSync(scriptPath, content);
                         } catch (e) {
                             throw e;
                         }

@@ -3,35 +3,33 @@ const fs = require('fs');
 const move = require('glob-move');
 const chalk = require('chalk');
 
-const { extractFileName } = require('../util');
 
 module.exports = function({ dist, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
 
-        move(`${dist}/${match}`, `${dist}/${folder}`)
+        move(Path.resolve(dist, match), Path.resolve(dist, folder))
             .then(async () => {
                 await markups.forEach(async document => {
                     const allStyles = document.querySelectorAll(
                         'link[rel="stylesheet"]'
                     );
-
-                    const path = `${prefix}/${folder}/`;
+                    const path = Path.resolve(prefix, folder);
 
                     await allStyles.forEach(async style => {
-                        try {
-                            const oldFilePath = style.href;
-                            const fileName = extractFileName(oldFilePath);
-                            const stylePath = Path.join(dist, folder, fileName);
-                            const content = await fs
-                                .readFileSync(stylePath)
-                                .toString();
+                        const oldFilePath = style.href;
+                        const fileName = Path.basename(oldFilePath);
+                        const stylePath = Path.resolve(dist, folder, fileName);
 
-                            style.href = `${path}${fileName}`;
-                            fs.writeFileSync(
-                                stylePath,
-                                content.replace(oldFilePath, style.href)
-                            );
+                        style.href = Path.resolve(path, fileName);
+
+                        try {
+                            let content = await fs.readFileSync(stylePath);
+                            content = content
+                                .toString()
+                                .replace(oldFilePath, style.href);
+
+                            fs.writeFileSync(stylePath, content);
                         } catch (e) {
                             throw e;
                         }
