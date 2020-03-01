@@ -3,6 +3,7 @@ const fs = require('fs');
 const move = require('glob-move');
 const chalk = require('chalk');
 
+const { isNotRemote } = require('../util');
 
 module.exports = function({ dist, prefix, options, markups }) {
     return new Promise(resolve => {
@@ -15,6 +16,8 @@ module.exports = function({ dist, prefix, options, markups }) {
                     const path = Path.resolve(prefix, folder);
 
                     await allScripts.forEach(async script => {
+                        if (!isNotRemote(script.src)) return;
+
                         const oldFilePath = script.src;
                         const fileName = Path.basename(oldFilePath);
                         const scriptPath = Path.resolve(dist, folder, fileName);
