@@ -22,6 +22,9 @@
         "build",
         "folders"
     ],
+    "scripts": {
+        "lint": "eslint --fix-dry-run src/**/*.js"
+    },
     "devDependencies": {
         "babel-eslint": "^10.0.1",
         "eslint": "^5.16.0",
