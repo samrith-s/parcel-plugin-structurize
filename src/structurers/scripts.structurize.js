@@ -44,12 +44,15 @@ module.exports = function({ dist, prefix, options, markups }) {
                 resolve();
             })
             .catch(e => {
+                // eslint-disable-next-line no-console
                 console.log(
                     chalk.red.bold(
                         'Error while structurizing scripts. Please check structures.'
                     )
                 );
+                // eslint-disable-next-line no-console
                 console.log(chalk.gray('Dist path:', dist));
+                // eslint-disable-next-line no-console
                 console.log(e);
                 process.exit();
             });
