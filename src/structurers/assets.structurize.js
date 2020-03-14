@@ -26,25 +26,31 @@ module.exports = function({ dist, prefix, options, markups }) {
                         if (image.tagName === 'SOURCE') attrValue = 'srcset';
                         if (image.tagName === 'LINK') attrValue = 'href';
 
-                        const fileName = Path.basename(image[attrValue]);
+                        const fileName = Path.basename(image[attrValue])
 
                         return image[attrValue] = Path.resolve(path, fileName);
                     });
 
                     await allStyles.forEach(async style => {
                         if (style.tagName === 'STYLE') {
-                            return style.textContent = rewriteUrls(style.textContent, path);
+                            return style.textContent = rewriteUrls(
+                                style.textContent,
+                                path
+                            );
                         }
-                        if (!isNotRemote(style.href)) return;
+                        if (!isNotRemote(style.href)) return
 
-                        const filePath = Path.resolve(dist, Path.basename(style.href));
+                        const filePath = Path.resolve(
+                            dist,
+                            Path.basename(style.href)
+                        );
 
                         try {
-                            let content = fs.readFileSync(filePath);
+                            let content = fs.readFileSync(filePath)
                             content = content.toString();
                             content = rewriteUrls(content, path);
 
-                            return fs.writeFileSync(filePath, content);
+                            return fs.writeFileSync(filePath, content)
                         } catch (e) {
                             throw e;
                         }
@@ -71,7 +77,7 @@ module.exports = function({ dist, prefix, options, markups }) {
 
 function rewriteUrls(string, path) {
     return rewriteCSSUrls(string, url => {
-        if (!isNotRemote(url)) return url;
-        return Path.resolve(path, Path.basename(url));
+        if (!isNotRemote(url)) return url
+        return Path.resolve(path, Path.basename(url))
     });
 }

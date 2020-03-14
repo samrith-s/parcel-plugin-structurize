@@ -34,7 +34,7 @@ function Structurize(bundler) {
             bundler.on('buildEnd', async () => {
                 const markupFiles = [...bundler.bundleNameMap]
                     .filter(file => /\.html$/.test(file[1]))
-                    .map(file => Path.basename(file[1]));
+                    .map(file => Path.basename(file[1]))
 
                 const markups = markupFiles.map(
                     file =>
