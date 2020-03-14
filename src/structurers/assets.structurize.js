@@ -34,10 +34,11 @@ module.exports = function({ dist, prefix, options, markups }) {
 
                     await allStyles.forEach(async style => {
                         if (style.tagName === 'STYLE') {
-                            return style.textContent = rewriteUrls(
+                            style.textContent = rewriteUrls(
                                 style.textContent,
                                 path
                             );
+                            return style.textContent
                         }
                         if (!isNotRemote(style.href)) return
 
@@ -48,7 +49,7 @@ module.exports = function({ dist, prefix, options, markups }) {
 
                         try {
                             let content = fs.readFileSync(filePath)
-                            content = content.toString();
+                            content = content.toString()
                             content = rewriteUrls(content, path);
 
                             return fs.writeFileSync(filePath, content)
