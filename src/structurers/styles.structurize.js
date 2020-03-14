@@ -15,24 +15,24 @@ module.exports = function({ dist, prefix, options, markups }) {
                     const allStyles = document.querySelectorAll(
                         'link[rel="stylesheet"]'
                     );
-                    const path = Path.resolve(prefix, folder);
+                    const path = Path.resolve(prefix, folder)
 
                     await allStyles.forEach(async style => {
-                        if (!isNotRemote(style.href)) return;
+                        if (!isNotRemote(style.href)) return
 
                         const oldFilePath = style.href;
                         const fileName = Path.basename(oldFilePath);
                         const stylePath = Path.resolve(dist, folder, fileName);
 
-                        style.href = Path.resolve(path, fileName);
+                        style.href = Path.resolve(path, fileName)
 
                         try {
                             let content = await fs.readFileSync(stylePath);
                             content = content
                                 .toString()
-                                .replace(oldFilePath, style.href);
+                                .replace(oldFilePath, style.href)
 
-                            fs.writeFileSync(stylePath, content);
+                            fs.writeFileSync(stylePath, content)
                         } catch (e) {
                             throw e;
                         }

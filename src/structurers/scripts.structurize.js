@@ -13,24 +13,24 @@ module.exports = function({ dist, prefix, options, markups }) {
             .then(async () => {
                 await markups.forEach(async document => {
                     const allScripts = document.querySelectorAll('script[src]');
-                    const path = Path.resolve(prefix, folder);
+                    const path = Path.resolve(prefix, folder)
 
                     await allScripts.forEach(async script => {
-                        if (!isNotRemote(script.src)) return;
+                        if (!isNotRemote(script.src)) return
 
                         const oldFilePath = script.src;
                         const fileName = Path.basename(oldFilePath);
                         const scriptPath = Path.resolve(dist, folder, fileName);
 
-                        script.src = Path.resolve(path, fileName);
+                        script.src = Path.resolve(path, fileName)
 
                         try {
-                            let content = await fs.readFileSync(scriptPath);
+                            let content = await fs.readFileSync(scriptPath)
                             content = content
                                 .toString()
                                 .replace(oldFilePath, script.src);
 
-                            return fs.writeFileSync(scriptPath, content);
+                            return fs.writeFileSync(scriptPath, content)
                         } catch (e) {
                             throw e;
                         }
