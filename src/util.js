@@ -1,11 +1,9 @@
-function isNotRemote(url) {
-    return !(
-        url.includes('http:') ||
-        url.includes('https:') ||
-        url.includes('//')
-    );
+function isRemote(url, condition = /^(https?:)?\/\//) {
+    condition = new RegExp(condition)
+
+    return !condition.test(url);
 }
 
 module.exports = {
-    isNotRemote,
+    isRemote,
 };
