@@ -5,26 +5,26 @@ const chalk = require('chalk');
 
 const { isNotRemote } = require('../util');
 
-module.exports = function({ dist, prefix, options, markups }) {
+module.exports = function({ dist, origin, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
+        const path = Path.join(prefix, folder)
 
-        move(Path.resolve(dist, match), Path.resolve(dist, folder))
+        move(Path.join(dist, match), Path.join(dist, folder))
             .then(async () => {
                 await markups.forEach(async document => {
                     const allStyles = document.querySelectorAll(
                         'link[rel="stylesheet"]'
                     );
-                    const path = Path.resolve(prefix, folder)
 
                     await allStyles.forEach(async style => {
                         if (!isNotRemote(style.href)) return
 
                         const oldFilePath = style.href;
                         const fileName = Path.basename(oldFilePath);
-                        const stylePath = Path.resolve(dist, folder, fileName);
+                        const stylePath = Path.join(dist, folder, fileName);
 
-                        style.href = Path.resolve(path, fileName)
+                        style.href = origin + Path.join('/', path, fileName)
 
                         try {
                             let content = await fs.readFileSync(stylePath);

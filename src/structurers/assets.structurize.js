@@ -6,11 +6,12 @@ const rewriteCSSUrls = require('css-url-rewrite');
 
 const { isNotRemote } = require('../util');
 
-module.exports = function({ dist, prefix, options, markups }) {
+module.exports = function({ dist, origin, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
+        const path = Path.join(prefix, folder)
 
-        move(Path.resolve(dist, match), Path.resolve(dist, folder))
+        move(Path.join(dist, match), Path.join(dist, folder))
             .then(() => {
                 markups.forEach(async document => {
                     const allAssets = await document.querySelectorAll(
@@ -19,7 +20,6 @@ module.exports = function({ dist, prefix, options, markups }) {
                     const allStyles = await document.querySelectorAll(
                         'style, link[rel="stylesheet"]'
                     );
-                    const path = Path.resolve(prefix, folder);
 
                     await allAssets.forEach(image => {
                         let attrValue = 'src';
@@ -28,7 +28,7 @@ module.exports = function({ dist, prefix, options, markups }) {
 
                         const fileName = Path.basename(image[attrValue])
 
-                        return image[attrValue] = Path.resolve(path, fileName);
+                        return image[attrValue] = origin + Path.join('/', path, fileName);
                     });
 
                     await allStyles.forEach(async style => {
@@ -41,7 +41,7 @@ module.exports = function({ dist, prefix, options, markups }) {
                         }
                         if (!isNotRemote(style.href)) return
 
-                        const filePath = Path.resolve(
+                        const filePath = Path.join(
                             dist,
                             Path.basename(style.href)
                         );
