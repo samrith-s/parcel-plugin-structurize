@@ -3,7 +3,7 @@ const fs = require('fs');
 const move = require('glob-move');
 const chalk = require('chalk');
 
-const { isNotRemote } = require('../util');
+const { isRemote } = require('../util');
 
 module.exports = function({ dist, origin, prefix, options, markups }) {
     return new Promise(resolve => {
@@ -18,7 +18,7 @@ module.exports = function({ dist, origin, prefix, options, markups }) {
                     );
 
                     await allStyles.forEach(async style => {
-                        if (!isNotRemote(style.href)) return
+                        if (isRemote(style.href, origin + prefix)) return
 
                         const oldFilePath = style.href;
                         const fileName = Path.basename(oldFilePath);

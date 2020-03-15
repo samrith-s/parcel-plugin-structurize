@@ -4,12 +4,18 @@ const move = require('glob-move');
 const chalk = require('chalk');
 const rewriteCSSUrls = require('css-url-rewrite');
 
-const { isNotRemote } = require('../util');
+const { isRemote } = require('../util');
 
 module.exports = function({ dist, origin, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
         const path = Path.join(prefix, folder)
+        const rewriteUrls = (string, path) => {
+            return rewriteCSSUrls(string, url => {
+                if (isRemote(url, origin + prefix)) return url
+                return Path.join('/', path, Path.basename(url))
+            });
+        }
 
         move(Path.join(dist, match), Path.join(dist, folder))
             .then(() => {
@@ -40,7 +46,7 @@ module.exports = function({ dist, origin, prefix, options, markups }) {
                             );
                             return style.textContent
                         }
-                        if (!isNotRemote(style.href)) return
+                        if (isRemote(style.href, origin + prefix)) return
 
                         const filePath = Path.join(
                             dist,
@@ -73,10 +79,3 @@ module.exports = function({ dist, origin, prefix, options, markups }) {
             });
     });
 };
-
-function rewriteUrls(string, path) {
-    return rewriteCSSUrls(string, url => {
-        if (!isNotRemote(url)) return url
-        return Path.resolve(path, Path.basename(url))
-    });
-}
