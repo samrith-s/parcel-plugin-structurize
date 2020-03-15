@@ -5,24 +5,24 @@ const chalk = require('chalk');
 
 const { isNotRemote } = require('../util');
 
-module.exports = function({ dist, prefix, options, markups }) {
+module.exports = function({ dist, origin, prefix, options, markups }) {
     return new Promise(resolve => {
         const { folder, match } = options;
+        const path = Path.join(prefix, folder)
 
-        move(Path.resolve(dist, match), Path.resolve(dist, folder))
+        move(Path.join(dist, match), Path.join(dist, folder))
             .then(async () => {
                 await markups.forEach(async document => {
                     const allScripts = document.querySelectorAll('script[src]');
-                    const path = Path.resolve(prefix, folder)
 
                     await allScripts.forEach(async script => {
                         if (!isNotRemote(script.src)) return
 
                         const oldFilePath = script.src;
                         const fileName = Path.basename(oldFilePath);
-                        const scriptPath = Path.resolve(dist, folder, fileName);
+                        const scriptPath = Path.join(dist, folder, fileName);
 
-                        script.src = Path.resolve(path, fileName)
+                        script.src = origin + Path.join('/', path, fileName)
 
                         try {
                             let content = await fs.readFileSync(scriptPath)

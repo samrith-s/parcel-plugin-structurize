@@ -15,6 +15,8 @@ function Structurize(bundler) {
             const {
                 options: { outDir: DIST_PATH, publicURL }
             } = bundler;
+            const origin = publicURL.replace(/^(https?:\/\/[^\/]+)?.*/, '$1');
+            const prefix = Path.join('/', publicURL.replace(origin, ''));
             const config = {
                 ...defaultConfig,
                 ...packageConfig
@@ -46,7 +48,8 @@ function Structurize(bundler) {
                 for (let [structurer, options] of configEntries) {
                     await require(`./structurers/${structurer}.structurize`)({
                         dist: DIST_PATH,
-                        prefix: publicURL.replace(/\/$/, ''),
+                        origin: origin,
+                        prefix: prefix,
                         options,
                         markups
                     });
