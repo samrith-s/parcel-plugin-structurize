@@ -36,7 +36,7 @@ module.exports = function({ dist, origin, prefix, options, markups }) {
                         const fileName = Path.basename(image[attrValue])
 
                         image[attrValue] =
-                            origin + Path.join('/', path, fileName);
+                            origin + Path.join('/', path, fileName)
                         return image[attrValue]
                     });
 
