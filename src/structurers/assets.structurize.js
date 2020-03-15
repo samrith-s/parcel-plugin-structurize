@@ -35,7 +35,8 @@ module.exports = function({ dist, origin, prefix, options, markups }) {
 
                         const fileName = Path.basename(image[attrValue])
 
-                        return image[attrValue] = origin + Path.join('/', path, fileName);
+                        image[attrValue] = origin + Path.join('/', path, fileName);
+                        return image[attrValue];
                     });
 
                     await allStyles.forEach(async style => {
