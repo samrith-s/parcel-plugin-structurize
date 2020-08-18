@@ -1,0 +1,13 @@
+{
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "lib",
+        "declaration": true,
+        "declarationDir": "lib/types",
+        "baseUrl": ".",
+        "module": "commonjs",
+        "target": "ES3"
+    }
+}
