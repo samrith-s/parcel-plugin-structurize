@@ -1,0 +1,83 @@
+{
+  "manifest": {
+    "name": "parcel-plugin-structurize",
+    "version": "1.2.0",
+    "author": {
+      "name": "Samrith Shankar",
+      "email": "samrith@outlook.com",
+      "url": "https://twitter.com/tueieo"
+    },
+    "license": "MIT",
+    "main": "lib/index.js",
+    "types": "lib/types/index.d.ts",
+    "files": [
+      "lib",
+      "LICENSE",
+      "README.md"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/samrith-s/parcel-plugin-structurize.git"
+    },
+    "bugs": {
+      "url": "https://github.com/samrith-s/parcel-plugin-structurize/issues"
+    },
+    "homepage": "https://github.com/samrith-s/parcel-plugin-structurize#readme",
+    "engines": {
+      "node": ">=12"
+    },
+    "keywords": [
+      "parcel",
+      "plugin",
+      "structure",
+      "build",
+      "folders"
+    ],
+    "scripts": {
+      "lint": "eslint --fix-dry-run src/**/*.js",
+      "build": "rimraf lib && rollup -c",
+      "dev": "tsc -w ."
+    },
+    "devDependencies": {
+      "@rollup/plugin-json": "^4.1.0",
+      "@types/jsdom": "^16.2.3",
+      "@types/node": "^14.6.0",
+      "@typescript-eslint/eslint-plugin": "^3.9.1",
+      "@typescript-eslint/parser": "^3.9.1",
+      "eslint": "^7.7.0",
+      "eslint-config-prettier": "^6.11.0",
+      "eslint-plugin-import": "^2.22.0",
+      "eslint-plugin-prettier": "^3.1.4",
+      "prettier": "^1.16.4",
+      "rimraf": "^3.0.2",
+      "rollup": "^2.26.3",
+      "rollup-plugin-typescript2": "^0.27.2",
+      "typescript": "^3.9.7"
+    },
+    "peerDependencies": {
+      "parcel-bundler": "^1.0.0"
+    },
+    "dependencies": {
+      "chalk": "^2.4.2",
+      "css-url-rewrite": "^0.9.0",
+      "glob": "^7.1.3",
+      "glob-move": "^1.0.1",
+      "jsdom": "^14.0.0"
+    },
+    "_registry": "npm",
+    "_loc": "/Users/sam/Library/Caches/Yarn/v6/npm-parcel-plugin-structurize-1.2.0-91ef1e5b-85d4-4943-8e00-54f972194b32-1597792621775/node_modules/parcel-plugin-structurize/package.json",
+    "readmeFilename": "README.md",
+    "readme": "# parcel-plugin-structurize\n\n[![npm badge](https://img.shields.io/npm/v/parcel-plugin-structurize.svg)](https://www.npmjs.com/package/parcel-plugin-structurize)\n[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d17ed96821dc491b81ae0de1ebb1ce8e)](https://app.codacy.com/app/samrith/parcel-plugin-structurize?utm_source=github.com&utm_medium=referral&utm_content=samrith-s/parcel-plugin-structurize&utm_campaign=Badge_Grade_Dashboard)\n[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/samrith-s)\n[![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith)\n\nA [Parcel][parcel] plugin that lets you organize your build directory into any structure.\n\n## Why?\n\nCurrently, Parcel builds everything for production in a flat structure. Sometimes, we might need a particular structure or might just prefer having a structure in the build folder.\n\nThis plugin runs only in `build` and let's you organize your scripts, styles and assets into folders.\n\n## Getting Started\n\nVia NPM\n\n```\nnpm i -D parcel-plugin-structurize\n```\n\nVia Yarn\n\n```\nyarn add --dev parcel-plugin-structurize\n```\n\n## Configuration\n\nTo configure the plugin, add `parcel-plugin-structurize` as a key to your `package.json` file:\n\n```json\n{\n    \"name\": \"my-parcel-project\",\n    \"parcel-plugin-structurize\": {\n        \"scripts\": {\n            \"match\": \"*.{js,js.map}\",\n            \"folder\": \"js\"\n        },\n        \"styles\": {\n            \"match\": \"*.{css,css.map}\",\n            \"folder\": \"css\"\n        },\n        \"assets\": {\n            \"match\": \"*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}\",\n            \"folder\": \"assets\"\n        }\n    }\n}\n```\n\nRight now, the plugin only supports `scripts`, `styles` and `assets`. Please feel free to raise a PR to add support for other types (example: `fonts`)!\n\nFor the supported keys, you can pass a custom folder and a custom glob:\n\n-   `assets`: Denotes ONLY images. Updates every `img` tag in all your HTML files.\n-   `scripts`: Denotes ONLY JavaScript files. Updates every `script` tag in all your HTML files.\n-   `styles`: Denotes ONLY stylesheets. Updates every `style` and `link` tag in all your HTML files.\n\nAdditionally, the plugin also updates paths of source-maps to match the updated folder structure.\n\nTo turn the plugin off, you can also set `\"parcel-plugin-structurize\": false` in your `package.json`.\n\n[parcel]: https://parceljs.org\n",
+    "description": "[![npm badge](https://img.shields.io/npm/v/parcel-plugin-structurize.svg)](https://www.npmjs.com/package/parcel-plugin-structurize) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d17ed96821dc491b81ae0de1ebb1ce8e)](https://app.codacy.com/app/samrith/parcel-plugin-structurize?utm_source=github.com&utm_medium=referral&utm_content=samrith-s/parcel-plugin-structurize&utm_campaign=Badge_Grade_Dashboard) [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/samrith-s) [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith)",
+    "licenseText": "MIT License\n\nCopyright (c) 2019 Samrith Shankar\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+  },
+  "artifacts": [],
+  "remote": {
+    "type": "copy",
+    "registry": "npm",
+    "hash": "91ef1e5b-85d4-4943-8e00-54f972194b32-1597792621775",
+    "reference": "/Users/sam/Work/projects/parcel-plugin-structurize/tests/bundle/node_modules/parcel-plugin-structurize"
+  },
+  "registry": "npm",
+  "hash": "91ef1e5b-85d4-4943-8e00-54f972194b32-1597792621775"
+}
