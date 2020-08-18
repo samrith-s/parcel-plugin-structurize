@@ -1,16 +1,25 @@
 {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": false
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint", "import", "prettier"],
     "extends": [
         "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
         "prettier"
     ],
-    "plugins": ["import", "prettier"],
-    "parser": "babel-eslint",
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".js", ".jsx"]
+                "extensions": [".ts", ".json"]
             }
         }
     },
@@ -22,23 +31,18 @@
         "jest": true
     },
     "rules": {
-        "quotes": 0,
-        "no-console": 1,
-        "no-debugger": 1,
-        "no-var": 1,
-        "no-trailing-spaces": 0,
-        "eol-last": 0,
-        "no-underscore-dangle": 0,
-        "no-alert": 0,
-        "no-lone-blocks": 0,
-        "import/extensions": 1,
-        "import/no-named-as-default": 0,
-        "prettier/prettier": [
-            "error",
-            {
-                "singleQuote": true
-            }
-        ]
+        "quotes": "warn",
+        "no-console": "warn",
+        "no-debugger": "warn",
+        "no-var": "error",
+        "no-trailing-spaces": "warn",
+        "eol-last": "warn",
+        "no-underscore-dangle": "off",
+        "no-alert": "error",
+        "no-lone-blocks": "off",
+        "import/extensions": "warn",
+        "import/no-named-as-default": "warn",
+        "prettier/prettier": "error"
     },
     "globals": {}
 }
