@@ -1,0 +1,12 @@
+{
+  "name": "bundle",
+  "version": "0.0.0",
+  "description": "Test bundle for structurizer",
+  "main": "index.js",
+  "author": "Samrith Shankar <samrith.shankar@outlook.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
