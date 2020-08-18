@@ -3,7 +3,13 @@
     "version": "1.2.0",
     "author": "Samrith Shankar <samrith@outlook.com> (https://twitter.com/tueieo)",
     "license": "MIT",
-    "main": "src/index.js",
+    "main": "lib/index.js",
+    "types": "lib/src/index.d.ts",
+    "files": [
+        "lib",
+        "LICENSE",
+        "README.md"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/samrith-s/parcel-plugin-structurize.git"
@@ -24,17 +30,26 @@
     ],
     "scripts": {
         "lint": "eslint --fix-dry-run src/**/*.js",
-        "build": "tsc -p .",
+        "build": "rimraf lib && rollup -c",
         "dev": "tsc -w ."
     },
     "devDependencies": {
+        "@rollup/plugin-commonjs": "^15.0.0",
+        "@rollup/plugin-json": "^4.1.0",
+        "@rollup/plugin-node-resolve": "^9.0.0",
+        "@types/jsdom": "^16.2.3",
+        "@types/node": "^14.6.0",
         "@typescript-eslint/eslint-plugin": "^3.9.1",
         "@typescript-eslint/parser": "^3.9.1",
+        "builtin-modules": "^3.1.0",
         "eslint": "^7.7.0",
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-prettier": "^3.1.4",
         "prettier": "^1.16.4",
+        "rimraf": "^3.0.2",
+        "rollup": "^2.26.3",
+        "rollup-plugin-typescript2": "^0.27.2",
         "typescript": "^3.9.7"
     },
     "peerDependencies": {
