@@ -1,5 +1,5 @@
 {
-    "name": "bundle",
+    "name": "bundle-basic",
     "version": "0.0.0",
     "description": "Test bundle for structurizer",
     "main": "index.js",
