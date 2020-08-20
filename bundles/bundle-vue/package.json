@@ -7,10 +7,12 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "build": "rimraf dist && parcel build src/index.html"
+        "build": "rimraf dist && parcel build src/index.html",
+        "dev": "chokidar ../../lib/**/* -c 'yarn build'"
     },
     "devDependencies": {
         "@vue/component-compiler-utils": "^3.2.0",
+        "chokidar": "file:../../node_modules/chokidar",
         "parcel-bundler": "file:../../node_modules/parcel-bundler",
         "parcel-plugin-structurize": "file:./node_modules/parcel-plugin-structurize",
         "pug": "^3.0.0",
