@@ -1,0 +1,10 @@
+[
+    {
+        "match": ".{jpg,png,bmp}",
+        "folder": "images"
+    },
+    {
+        "match": "(.jsx?)$",
+        "folder": "javascript"
+    }
+]
