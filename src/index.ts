@@ -2,6 +2,7 @@ import Path from 'path';
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import ParcelBundler from 'parcel-bundler';
+import { cosmiconfigSync } from 'cosmiconfig';
 
 import pkg from '../package.json';
 import defaultConfig from './default.structure.json';
@@ -10,8 +11,8 @@ import assetsStructurizer from './structurers/assets.structurize';
 import scriptsStructurizer from './structurers/scripts.structurize';
 import stylesStructurizer from './structurers/styles.structurize';
 
-import DependencyGraph from './depgraph';
-import { AssetMap } from 'core/AssetMap';
+import { AssetMap } from './core/AssetMap';
+import { BundlerProvider } from 'core/providers/Bundler';
 
 const structurizers = {
     assets: assetsStructurizer,
@@ -67,11 +68,13 @@ export default function Structurize(bundler: ParcelBundler) {
         //         });
         //     });
         // }
+        BundlerProvider.init(bundler);
 
-        bundler.on('bundled', bundle => {
-            const map = new AssetMap(bundler);
-            console.log('map', map.get());
-            // console.log(map.getPathMaps());
+        bundler.on('bundled', () => {
+            const map = new AssetMap();
+            console.log('config path:', map.configPath());
+            console.log('config:', map.config());
+            console.log(map.get());
         });
     }
 }
