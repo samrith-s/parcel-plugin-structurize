@@ -7,7 +7,7 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "import", "vue", "prettier"],
+    "plugins": ["@typescript-eslint", "import", "prettier"],
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
@@ -40,7 +40,7 @@
         "no-underscore-dangle": "off",
         "no-alert": "error",
         "no-lone-blocks": "off",
-        "import/extensions": "warn",
+        "import/extensions": ["warn", { "json": "always" }],
         "import/no-named-as-default": "warn",
         "prettier/prettier": "error"
     },
