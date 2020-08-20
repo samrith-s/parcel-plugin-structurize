@@ -1,44 +1,50 @@
 import * as path from 'path';
-import ParcelBundler from 'parcel-bundler';
 
-interface Bundler extends ParcelBundler {
-    bundleNameMap: Map<string, string>;
-}
+import { ConfigProvider } from './providers/Config';
 
-interface Asset {
+export interface AssetInfo {
     file: string;
-    mapFile?: string;
+    location: string;
+    path: string;
+}
+export interface Asset extends AssetInfo {
+    mapFile?: AssetInfo;
 }
 
-export class AssetMap {
-    private bundler: Partial<Bundler>;
+export class AssetMap extends ConfigProvider {
     private assetsMap: Asset[] = [];
 
-    constructor(bundler: Partial<Bundler>) {
-        this.bundler = bundler;
+    constructor() {
+        super();
         this.generateAssetsMap();
     }
 
-    public get() {
+    public get(): Asset[] {
         return this.assetsMap;
     }
 
     private generateAssetsMap() {
         const bundleAssets = Array.from(this.bundler.bundleNameMap.values());
         bundleAssets.forEach(name => {
-            console.log(path.extname(name));
-            if (path.extname(name) !== 'map') {
+            if (path.extname(name) !== '.map') {
+                const { publicUrl = '/', outDir } = this.bundlerConfig;
                 const file = name;
-                let mapFile: string | undefined;
+                const asset: Asset = {
+                    file,
+                    location: path.join(outDir, file),
+                    path: path.join(publicUrl, file)
+                };
 
                 if (bundleAssets.includes(`${file}.map`)) {
-                    mapFile = `${file}.map`;
+                    const mapFile = `${file}.map`;
+                    asset.mapFile = {
+                        file: mapFile,
+                        location: path.join(outDir, mapFile),
+                        path: path.join(publicUrl, mapFile)
+                    };
                 }
 
-                this.assetsMap.push({
-                    file,
-                    mapFile
-                });
+                this.assetsMap.push(asset);
             }
         });
     }
