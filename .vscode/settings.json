@@ -5,5 +5,13 @@
         "source.fixAll": true
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "typescript.format.enable": false
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.cache": true,
+        "**/node_modules": true
+    }
 }

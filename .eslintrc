@@ -31,7 +31,7 @@
         "jest": true
     },
     "rules": {
-        "quotes": "warn",
+        "quotes": "off",
         "no-console": "warn",
         "no-debugger": "warn",
         "no-var": "error",
