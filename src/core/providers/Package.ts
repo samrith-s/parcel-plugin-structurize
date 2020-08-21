@@ -14,7 +14,7 @@ export class PackageProvider extends BundlerProvider {
         }
     }
 
-    public getPackageValue(key: keyof Package): Package[typeof key] {
+    protected getPackageValue(key: keyof Package): any {
         return PackageProvider.package[key];
     }
 }
