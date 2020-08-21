@@ -6,15 +6,17 @@ import { ConfigProvider, ConfigInternal } from './providers/Config';
 import { ParcelBundle } from 'parcel-bundler';
 
 export interface AssetGraph {
-    [key: string]: {
-        newPath: string | null;
-        mapFile: boolean;
-        dependents: string[] | null;
-    };
+    source: string;
+    destination: string | null;
+    replacer: string | null;
+    mapFile: boolean;
+    dependents: string[] | null;
 }
 
+export type AssetsGraphMap = Map<string, AssetGraph>;
+
 export class AssetMap extends ConfigProvider {
-    private assetsMap: AssetGraph = {};
+    private assetsMap: AssetsGraphMap = new Map();
     private bundle: ParcelBundle;
 
     constructor(bundle: ParcelBundle) {
@@ -23,7 +25,7 @@ export class AssetMap extends ConfigProvider {
         this.generateAssetsMap();
     }
 
-    public get(): AssetGraph {
+    public get(): AssetsGraphMap {
         return this.assetsMap;
     }
 
@@ -45,22 +47,47 @@ export class AssetMap extends ConfigProvider {
             return minimatch(mapFile ? file.replace(/(\.map)$/, '') : file, c.match);
         });
 
-        this.assetsMap[file] = {
-            newPath: this.generatePath(file, fileConfig),
+        const currentPath = this.generateCurrentPath(file);
+
+        this.assetsMap.set(currentPath, {
+            source: this.generateCurrentPath(file, true),
+            destination: this.generateNewPath(file, fileConfig, true),
+            replacer: this.generateNewPath(file, fileConfig),
             mapFile,
             dependents: null
-        };
+        });
 
         if (depAsset.childBundles.size) {
-            this.assetsMap[file].dependents = [];
+            const currentMap = this.assetsMap.get(currentPath);
+            currentMap.dependents = [];
             depAsset.childBundles.forEach(childBundle => {
-                this.assetsMap[file].dependents.push(path.basename(childBundle.name));
+                currentMap.dependents.push(
+                    this.generateCurrentPath(path.basename(childBundle.name))
+                );
                 this.iterativeDependencyResolver(childBundle);
             });
         }
     }
 
-    private generatePath(file: string, fileConfig: ConfigInternal): string {
-        return fileConfig ? path.join(this.bundlerConfig.publicUrl, sanitize(fileConfig.folder), file) : null;
+    private generateCurrentPath(file: string, full?: boolean): string {
+        if (full) {
+            return path.join(this.bundlerConfig.outDir, file);
+        }
+
+        return path.join(this.bundlerConfig.publicUrl, file);
+    }
+
+    private generateNewPath(
+        file: string,
+        fileConfig: ConfigInternal,
+        destination?: boolean
+    ): string {
+        return fileConfig
+            ? path.join(
+                  destination ? this.bundlerConfig.outDir : this.bundlerConfig.publicUrl,
+                  sanitize(fileConfig.folder),
+                  file
+              )
+            : null;
     }
 }
