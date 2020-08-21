@@ -1,10 +1,12 @@
-[
-    {
-        "match": "*.{jpg,png,bmp}",
-        "folder": "images"
-    },
-    {
-        "match": "*.js",
-        "folder": "javascript"
-    }
-]
+{
+    "rules": [
+        {
+            "match": "*.{jpg,png,bmp}",
+            "folder": "images"
+        },
+        {
+            "match": "*.js",
+            "folder": "javascript"
+        }
+    ]
+}
