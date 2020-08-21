@@ -31,7 +31,7 @@
     "scripts": {
         "bootstrap": "./scripts/prepare-bundles.sh",
         "prepublishOnly": "yarn build",
-        "lint": "eslint --fix-dry-run src/**/*.js",
+        "lint": "eslint --fix-dry-run src/**/*.ts",
         "build": "rimraf lib && rollup -c",
         "dev": "rimraf lib && NODE_ENV=development rollup -c -w"
     },
