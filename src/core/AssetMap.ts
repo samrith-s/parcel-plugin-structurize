@@ -11,6 +11,7 @@ export interface AssetGraph {
     replacer: string | null;
     mapFile: boolean;
     dependents: string[] | null;
+    config: ConfigInternal;
 }
 
 export type AssetsGraphMap = Map<string, AssetGraph>;
@@ -54,7 +55,8 @@ export class AssetMap extends ConfigProvider {
             destination: this.generateNewPath(file, fileConfig, true),
             replacer: this.generateNewPath(file, fileConfig),
             mapFile,
-            dependents: null
+            dependents: null,
+            config: fileConfig
         });
 
         if (depAsset.childBundles.size) {
