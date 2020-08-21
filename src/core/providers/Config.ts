@@ -1,8 +1,9 @@
 import { cosmiconfigSync } from 'cosmiconfig';
 
 import { DefaultConfig } from './../../default.config';
+import pkg from '../../../package.json';
 
-import { PackageProvider } from './Package';
+import { BundlerProvider } from './Bundler';
 
 export type ConfigInternal = {
     match: string;
@@ -15,13 +16,12 @@ export type Config = {
     isEmpty?: boolean;
 };
 
-export class ConfigProvider extends PackageProvider {
-    private static config: Config;
+export class ConfigProvider extends BundlerProvider {
+    public static config: Config;
 
-    constructor() {
-        super();
+    public static init(): void {
         if (!ConfigProvider.config) {
-            const packageName = this.getPackageValue('name');
+            const packageName = pkg.name;
 
             const loadedConfig = cosmiconfigSync(packageName, {
                 searchPlaces: ['package.json', `${packageName}.json`]
