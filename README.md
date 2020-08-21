@@ -1,17 +1,17 @@
 # parcel-plugin-structurize
 
-> 🚨 These are the docs for v2 of parcel-plugin-structurize and still in beta. For v1, check the [old branch](https://github.com/samrith-s/parcel-plugin-structurize/tree/master).
+> 🚨 These are the docs for v2 of parcel-plugin-structurize and which is still in beta. For v1, check the [old branch](https://github.com/samrith-s/parcel-plugin-structurize/tree/master).
 
-![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize/next)
+[![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
 [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith)
 
-A [Parcel][parcel] plugin that lets you organize your build directory into any structure.
+A [Parcel][parcel] plugin that lets you organize your output directory.
 
 ## Why?
 
-Currently, Parcel builds everything for production in a flat structure. Sometimes, we might need a particular structure or might just prefer having a structure in the build folder.
+When building for production, Parcel outputs the build in a flat structure. In some cases, we might need a particular structure for the built output.
 
-This plugin runs only in `build` and let's you organize your scripts, styles and assets into folders.
+This plugin lets you organize every file output by Parcel by matching and moving assets into your desired structure. It also updates all references in every file to ensure that the output is ready for consumption with your custom structure.
 
 ## Installation
 
@@ -21,7 +21,7 @@ Installation is straight forward using NPM or Yarn:
 # Using NPM
 npm install --save-dev parcel-plugin-structurize@next
 
-#Using Yanrn
+# Using Yarn
 yarn add -D parcel-plugin-structurize@next
 ```
 
@@ -65,6 +65,8 @@ There are two ways to configure the plugin:
     }
 ]
 ```
+
+> **Note:** This plugin runs **ONLY in build** since the use-case of running it in watch or serve is not compelling enough.
 
 ## Configuration
 
