@@ -1,11 +1,117 @@
-import { AssetMap } from './AssetMap';
+import { readFile, writeFileSync } from 'fs';
+import * as path from 'path';
+import moveFile from 'move-file';
+import chalk from 'chalk';
+
 import { ConfigProvider } from './providers/Config';
+import { AssetsGraphMap, AssetGraph } from './AssetMap';
 
 export class FileManager extends ConfigProvider {
-    private assetsMap: AssetMap['assetsMap'] = [];
+    private assetsMap: AssetsGraphMap;
+    private moveTracker: Record<string, number>;
+    private moves: {
+        total: number;
+        current: number;
+    };
+    private timer: {
+        start: number;
+        end: number;
+    };
 
-    constructor(private map: AssetMap) {
+    constructor(assetsMap: AssetsGraphMap) {
         super();
-        this.assetsMap = map.get();
+        this.assetsMap = assetsMap;
+        this.moveTracker = {};
+        this.moves = {
+            total: Array.from(this.assetsMap.values()).filter(
+                o => o.destination && o.config.folder !== '.'
+            ).length,
+            current: 0
+        };
+        this.timer = {
+            start: 0,
+            end: 0
+        };
+    }
+
+    public structurize(): void {
+        this.timer.start = Date.now();
+        Array.from(this.assetsMap.values()).forEach(asset => {
+            this.rewriteAsset(asset);
+        });
+    }
+
+    private rewriteAsset(asset: AssetGraph): void {
+        readFile(asset.source, (error, contents) => {
+            if (error) {
+                throw error;
+            }
+
+            const newContent = this.performReplace(contents.toString(), asset.dependents);
+            writeFileSync(asset.source, newContent, { encoding: 'utf-8', flag: 'w' });
+
+            this.moveAsset(asset);
+        });
+    }
+
+    private async moveAsset(asset: AssetGraph): Promise<void> {
+        if (asset.destination) {
+            await moveFile(asset.source, asset.destination);
+            this.incrementCount(asset);
+        }
+    }
+
+    private performReplace(contents: string, dependents: AssetGraph['dependents']): string {
+        if (!dependents) {
+            return contents;
+        }
+
+        return dependents.reduce((newContent, dependent) => {
+            const thisDependent = this.assetsMap.get(dependent);
+
+            if (thisDependent.replacer) {
+                newContent = newContent.replace(dependent, thisDependent.replacer);
+            }
+
+            return newContent;
+        }, contents);
+    }
+
+    private incrementCount(asset: AssetGraph): void {
+        if (asset.destination && asset.config.folder !== '.') {
+            this.moveTracker[asset.config.folder] =
+                (this.moveTracker[asset.config.folder] || 0) + 1;
+            this.moves.current += 1;
+        }
+
+        if (this.moves.current === this.moves.total) {
+            this.timer.end = Date.now();
+            const difference = this.timer.end - this.timer.start;
+            console.log(
+                chalk` {green.bold Structurization complete. Modified ${
+                    this.moves.total
+                } files in ${difference}ms}`
+            );
+            Object.entries(this.moveTracker).forEach(([folder, count]) => {
+                console.log(
+                    chalk` {dim - Moved ${count} files to ${path.join(
+                        this.bundlerConfig.outDir.split('/').pop(),
+                        folder
+                    )}}`
+                );
+            });
+            console.log(
+                chalk`\n {white.dim If you loved the plugin, do consider starring the repository:}`
+            );
+            console.log(chalk` {white.dim https://github.com/samrith-s/parcel-plugin-structurize}`);
+            console.log('');
+            console.log(
+                chalk` {white.dim Think something could be improved? Create an issue on our repository:}`
+            );
+            console.log(
+                chalk` {white.dim http://bit.ly/parcel-plugin-structurize-feature-request}`
+            );
+            console.log('');
+        }
     }
 }
