@@ -19,7 +19,8 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".ts", ".json"]
+                "extensions": [".ts", ".json"],
+                "moduleDirectory": ["node_modules", "src"]
             }
         }
     },
@@ -41,6 +42,8 @@
         "no-alert": "error",
         "no-lone-blocks": "off",
         "import/extensions": ["warn", { "json": "always" }],
+        "import/no-unresolved": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
         "import/no-named-as-default": "warn",
         "prettier/prettier": "error"
     },
