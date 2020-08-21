@@ -22,9 +22,9 @@ export default {
     output: {
         file: pkg.main,
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: process.env.NODE_ENV === 'development',
         exports: 'auto'
     },
     plugins,
-    external: [...builtins, 'jsdom']
+    external: builtins
 };

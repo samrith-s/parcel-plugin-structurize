@@ -33,7 +33,7 @@
         "prepublishOnly": "yarn build",
         "lint": "eslint --fix-dry-run src/**/*.js",
         "build": "rimraf lib && rollup -c",
-        "dev": "rimraf lib && rollup -c -w"
+        "dev": "rimraf lib && NODE_ENV=development rollup -c -w"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^15.0.0",
