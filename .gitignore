@@ -8,3 +8,9 @@ node_modules/
 
 lib/
 dist/
+
+coverage/
+
+.yarn-metadata.json
+
+tests/environment.js
