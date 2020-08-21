@@ -1,9 +1,9 @@
 import * as path from 'path';
 import minimatch from 'minimatch';
 import sanitize from 'sanitize-filename';
-
-import { ConfigProvider, ConfigInternal } from './providers/Config';
 import { ParcelBundle } from 'parcel-bundler';
+
+import { ConfigProvider, Structurizer } from './providers/Config';
 
 export interface AssetGraph {
     source: string;
@@ -11,7 +11,7 @@ export interface AssetGraph {
     replacer: string | null;
     mapFile: boolean;
     dependents: string[] | null;
-    config: ConfigInternal;
+    config: Structurizer;
 }
 
 export type AssetsGraphMap = Map<string, AssetGraph>;
@@ -44,7 +44,7 @@ export class AssetMap extends ConfigProvider {
         const file = path.basename(depAsset.name);
         const extension = path.extname(file);
         const mapFile = extension === '.map';
-        const fileConfig = this.config.find(c => {
+        const fileConfig = this.rules.find(c => {
             return minimatch(mapFile ? file.replace(/(\.map)$/, '') : file, c.match);
         });
 
@@ -79,11 +79,7 @@ export class AssetMap extends ConfigProvider {
         return path.join(this.bundlerConfig.publicUrl, file);
     }
 
-    private generateNewPath(
-        file: string,
-        fileConfig: ConfigInternal,
-        destination?: boolean
-    ): string {
+    private generateNewPath(file: string, fileConfig: Structurizer, destination?: boolean): string {
         return fileConfig
             ? path.join(
                   destination ? this.bundlerConfig.outDir : this.bundlerConfig.publicUrl,

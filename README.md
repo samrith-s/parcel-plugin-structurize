@@ -37,7 +37,27 @@ There are two ways to configure the plugin:
 // package.json
 {
     // other package.json entries
-    "parcel-plugin-structurize": [
+    "parcel-plugin-structurize": {
+        "rules": [
+            {
+                "match": "*.js",
+                "folder": "scripts"
+            },
+            {
+                "match": "*.{jpg,png,gif,svg}",
+                "folder": "images"
+            }
+        ]
+    }
+}
+```
+
+-   Via a `parcel-plugin-structurize.json` file in your project root (right next to your `package.json`).
+
+```jsonc
+// parcel-plugin-structurize.json
+{
+    "rules": [
         {
             "match": "*.js",
             "folder": "scripts"
@@ -50,49 +70,41 @@ There are two ways to configure the plugin:
 }
 ```
 
--   Via a `parcel-plugin-structurize.json` file in your project root (right next to your `package.json`).
-
-```jsonc
-// parcel-plugin-structurize.json
-[
-    {
-        "match": "*.js",
-        "folder": "scripts"
-    },
-    {
-        "match": "*.{jpg,png,gif,svg}",
-        "folder": "images"
-    }
-]
-```
-
 > **Note:** This plugin runs **ONLY in build** since the use-case of running it in watch or serve is not compelling enough.
 
 ## Configuration
 
-The configuration is an array of objects which are called Structurizers. Each Structurizer container the following:
+The configuration includes two attributes:
 
--   `match`: A [glob][glob] pattern to match file names and group them to a folder.
--   `folder`: The folder to place the files in. Can contain nested folders (ex: `scripts/vendors`, `images/vectors/user/avatar`)
+-   `rules: Structurizer`: An array of objects which are called Structurizers.
+-   `verbose: boolean`: Whether to enable verbose logging or not.
+
+A Structurizer has the following attributes:
+
+-   `match: string`: A [glob][glob] pattern to match file names and group them to a folder.
+-   `folder: string`: The folder to place the files in. Can contain nested folders (ex: `scripts/vendors`, `images/vectors/user/avatar`)
 
 You can provide as many Structurizers in your configuration file. The plugin ships with sensible defaults.
 
 ```jsonc
 // default config
-[
-    {
-        "match": "*.js",
-        "folder": "js"
-    },
-    {
-        "match": "*.css",
-        "folder": "css"
-    },
-    {
-        "match": "*.{jpg,jpeg,jpeg2,png,gif,svg,bmp,webp}",
-        "folder": "assets"
-    }
-]
+{
+    "verbose": false,
+    "rules": [
+        {
+            "match": "*.js",
+            "folder": "js"
+        },
+        {
+            "match": "*.css",
+            "folder": "css"
+        },
+        {
+            "match": "*.{jpg,jpeg,jpeg2,png,gif,svg,bmp,webp}",
+            "folder": "assets"
+        }
+    ]
+}
 ```
 
 ## Gotchas

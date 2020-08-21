@@ -5,6 +5,7 @@ import chalk from 'chalk';
 
 import { ConfigProvider } from './providers/Config';
 import { AssetsGraphMap, AssetGraph } from './AssetMap';
+import { logger } from '../logs';
 
 export class FileManager extends ConfigProvider {
     private assetsMap: AssetsGraphMap;
@@ -87,31 +88,18 @@ export class FileManager extends ConfigProvider {
         if (this.moves.current === this.moves.total) {
             this.timer.end = Date.now();
             const difference = this.timer.end - this.timer.start;
-            console.log(
-                chalk` {green.bold Structurization complete. Modified ${
-                    this.moves.total
-                } files in ${difference}ms}`
-            );
-            Object.entries(this.moveTracker).forEach(([folder, count]) => {
-                console.log(
+            const fileLogs = Object.entries(this.moveTracker).map(
+                ([folder, count]) =>
                     chalk` {dim - Moved ${count} files to ${path.join(
                         this.bundlerConfig.outDir.split('/').pop(),
                         folder
                     )}}`
-                );
+            );
+            logger.complete({
+                total: this.moves.total,
+                difference,
+                fileLogs
             });
-            console.log(
-                chalk`\n {white.dim If you loved the plugin, do consider starring the repository:}`
-            );
-            console.log(chalk` {white.dim https://github.com/samrith-s/parcel-plugin-structurize}`);
-            console.log('');
-            console.log(
-                chalk` {white.dim Think something could be improved? Create an issue on our repository:}`
-            );
-            console.log(
-                chalk` {white.dim http://bit.ly/parcel-plugin-structurize-feature-request}`
-            );
-            console.log('');
         }
     }
 }

@@ -5,19 +5,24 @@ import pkg from '../../../package.json';
 
 import { BundlerProvider } from './Bundler';
 
-export type ConfigInternal = {
+export type Structurizer = {
     match: string;
     folder: string;
 };
 
 export type Config = {
-    config: ConfigInternal[];
+    verbose?: boolean;
+    rules: Structurizer[];
+};
+
+export type LoadedConfig = {
+    config: Config;
     filepath: string;
     isEmpty?: boolean;
 };
 
 export class ConfigProvider extends BundlerProvider {
-    public static config: Config;
+    public static config: LoadedConfig;
 
     public static init(): void {
         if (!ConfigProvider.config) {
@@ -38,8 +43,12 @@ export class ConfigProvider extends BundlerProvider {
         }
     }
 
-    protected get config(): ConfigInternal[] {
+    protected get config(): Config {
         return ConfigProvider.config.config;
+    }
+
+    protected get rules(): Config['rules'] {
+        return ConfigProvider.config.config.rules;
     }
 
     protected configPath(): string {
