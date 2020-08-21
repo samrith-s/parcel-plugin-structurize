@@ -1,0 +1,22 @@
+[
+    {
+        "match": "*.js",
+        "folder": "js"
+    },
+    {
+        "match": "*.css",
+        "folder": "css"
+    },
+    {
+        "match": "*.{jpg,jpeg,jpeg2,png,gif,svg,bmp,webp}",
+        "folder": "assets"
+    },
+    {
+        "match": "index.html",
+        "folder": "."
+    },
+    {
+        "match": "*.html",
+        "folder": "html"
+    }
+]
