@@ -13,11 +13,14 @@ export class BundlerProvider {
         }
     }
 
-    public get bundler(): Bundler {
+    protected get bundler(): Bundler {
         return BundlerProvider.bundler;
     }
 
-    public get bundlerConfig(): ParcelOptions {
-        return this.bundler['options'];
+    protected get bundlerConfig(): ParcelOptions {
+        return {
+            ...this.bundler['options'],
+            publicUrl: this.bundler['options'].publicURL || '/'
+        };
     }
 }
