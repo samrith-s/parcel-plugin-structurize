@@ -4,13 +4,13 @@ import { DefaultConfig } from './../../default.config';
 
 import { PackageProvider } from './Package';
 
-export type ConfigInternal = Array<{
+export type ConfigInternal = {
     match: string;
     folder: string;
-}>;
+};
 
 export type Config = {
-    config: ConfigInternal;
+    config: ConfigInternal[];
     filepath: string;
     isEmpty?: boolean;
 };
@@ -38,19 +38,19 @@ export class ConfigProvider extends PackageProvider {
         }
     }
 
-    public config(): ConfigInternal {
+    protected get config(): ConfigInternal[] {
         return ConfigProvider.config.config;
     }
 
-    public configPath(): string {
+    protected configPath(): string {
         return ConfigProvider.config.filepath;
     }
 
-    public configIsEmpty(): boolean {
+    protected configIsEmpty(): boolean {
         return ConfigProvider.config.isEmpty;
     }
 
-    public configIsDefault(): boolean {
+    protected configIsDefault(): boolean {
         return !ConfigProvider.config || ConfigProvider.config.isEmpty;
     }
 }
