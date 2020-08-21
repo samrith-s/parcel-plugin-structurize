@@ -1,6 +1,6 @@
 import { ConfigInternal } from './core/providers/Config';
 
-export const DefaultConfig: ConfigInternal = [
+export const DefaultConfig: ConfigInternal[] = [
     {
         match: '*.js',
         folder: 'js'
@@ -10,7 +10,7 @@ export const DefaultConfig: ConfigInternal = [
         folder: 'css'
     },
     {
-        match: '*.{jpg,jpeg,jpeg2,png,gif,svg,.bmp,.webp}',
+        match: '*.{jpg,jpeg,jpeg2,png,gif,svg,bmp,webp}',
         folder: 'assets'
     }
 ];
