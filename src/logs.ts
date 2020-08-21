@@ -15,8 +15,9 @@ type Logs = {
 export const logs: Logs = {
     welcome() {
         return [
+            '',
             chalk`{cyan parcel-plugin-structurize}`,
-            chalk`{dim Config: ${ConfigProvider.config.filepath}`
+            chalk`{dim Config: ${ConfigProvider.config.filepath}}`
         ];
     },
     error({ error }) {
@@ -52,8 +53,9 @@ export const logger = Object.entries(logs).reduce(
         ...acc,
         [key]: (opts: Parameters<typeof func>[0]): void => {
             logs[key](opts).forEach(item => {
-                console.log(item);
+                console.log(' ', item);
             });
+            console.log('');
         }
     }),
     {} as Logs
