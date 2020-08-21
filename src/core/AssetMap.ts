@@ -1,5 +1,6 @@
 import * as path from 'path';
-import * as minimatch from 'minimatch';
+import minimatch from 'minimatch';
+import sanitize from 'sanitize-filename';
 
 import { ConfigProvider, ConfigInternal } from './providers/Config';
 import { ParcelBundle } from 'parcel-bundler';
@@ -41,7 +42,7 @@ export class AssetMap extends ConfigProvider {
         const extension = path.extname(file);
         const mapFile = extension === '.map';
         const fileConfig = this.config.find(c => {
-            return minimatch.default(mapFile ? file.replace(/(\.map)$/, '') : file, c.match);
+            return minimatch(mapFile ? file.replace(/(\.map)$/, '') : file, c.match);
         });
 
         this.assetsMap[file] = {
@@ -60,6 +61,6 @@ export class AssetMap extends ConfigProvider {
     }
 
     private generatePath(file: string, fileConfig: ConfigInternal): string {
-        return fileConfig ? path.join(this.bundlerConfig.publicUrl, fileConfig.folder, file) : null;
+        return fileConfig ? path.join(this.bundlerConfig.publicUrl, sanitize(fileConfig.folder), file) : null;
     }
 }
