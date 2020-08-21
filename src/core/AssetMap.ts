@@ -44,7 +44,7 @@ export class AssetMap extends ConfigProvider {
         const file = path.basename(depAsset.name);
         const extension = path.extname(file);
         const mapFile = extension === '.map';
-        const fileConfig = this.rules.find(c => {
+        const fileConfig = this.config.rules.find(c => {
             return minimatch(mapFile ? file.replace(/(\.map)$/, '') : file, c.match);
         });
 
