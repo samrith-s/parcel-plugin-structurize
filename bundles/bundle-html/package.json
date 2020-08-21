@@ -7,7 +7,7 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "build": "rimraf dist && parcel build src/index.html",
+        "build": "rimraf dist && parcel build src/index.html src/app.html --public-url '/app'",
         "dev": "chokidar ../../lib/**/*.js -c 'yarn build'"
     },
     "devDependencies": {
