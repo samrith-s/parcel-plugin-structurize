@@ -23,12 +23,12 @@ class BundlerEnvironment extends NodeEnvironment {
 
     async setup() {
         await super.setup();
-        const _this = this;
         if (this.runSetup) {
             const cwd = pointToBundle(this.bundle);
             await new Promise(resolve =>
                 bundle.call(this, cwd, bundle => {
-                    this.bundle = bundle;
+                    this.global.bundle = bundle;
+                    this.global.lol = Math.random();
                     resolve();
                 })
             );
