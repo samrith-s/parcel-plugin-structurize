@@ -14,6 +14,7 @@ exports.bundle = function bundle(cwd, callback) {
         []
     );
     const bundler = new ParcelBundler(newEntryFiles, {
+        logLevel: 1,
         outDir: path.join(cwd, 'dist')
     });
     bundler.on('bundled', callback);
