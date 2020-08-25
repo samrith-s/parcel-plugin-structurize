@@ -9,8 +9,7 @@ import { logger } from './logs';
 
 export default function Structurize(bundler: ParcelBundler): void {
     if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'jest') {
-        console.log('');
-        console.log('');
+        logger.clearLine(2);
         process.on('uncaughtException', errorHandler);
         process.on('unhandledRejection', errorHandler);
 

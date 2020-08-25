@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import chalk from 'chalk';
 
 import { ConfigProvider } from './core/providers/Config';
@@ -68,5 +69,13 @@ export const logger = Object.entries(logs).reduce(
             clearLine && console.log('');
         }
     }),
-    {} as Logs
+    {
+        clearLine(lines = 1) {
+            for (let i = 0; i < lines; i++) {
+                console.log('');
+            }
+        }
+    } as Logs & {
+        clearLine: (lines?: number) => void;
+    }
 );
