@@ -1,20 +1,33 @@
 import * as path from 'path';
-import { readdirSync } from 'fs';
+import minimatch from 'minimatch';
+
+import { getBundleDirectories, getFolderContains, getConfigDirs, getFolderFiles } from './utils';
 // import ParcelBundler, { ParcelBundle, ParcelOptions } from 'parcel-bundler';
 
 // const Bundler = (global as any).Bundler as ParcelBundler;
 // const bundlerOptions = Bundler['options'] as ParcelOptions;
 // const bundleNameMap = Bundler['bundleNameMap'];
 // const bundle = (global as any).bundle as ParcelBundle;
-const directoryMap = {};
+let bundleDirectories = [];
 
 const bundleDir = path.resolve(process.cwd(), '__tests__', 'bundle', 'dist');
 
 beforeAll(() => {
-    const bundleDirectories = readdirSync(bundleDir);
-    console.log('dirs', bundleDirectories);
+    bundleDirectories = getBundleDirectories(bundleDir);
 });
 
-test('Build structure is ok', () => {
-    expect(1 + 1).toEqual(2);
+describe('Structurization output', () => {
+    it('All directories specified in config exist', () => {
+        expect(bundleDirectories).toEqual(expect.arrayContaining(getConfigDirs()));
+    });
+
+    test.each(getFolderContains())(
+        'The %p folder only contains files which match %p',
+        (folder, match) => {
+            const files = getFolderFiles(bundleDir, folder);
+            files.forEach(file => {
+                expect(minimatch(file, match)).toBeTruthy();
+            });
+        }
+    );
 });
