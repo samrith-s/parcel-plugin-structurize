@@ -1,0 +1,1 @@
+(cd __tests__/bundle && yarn build)
