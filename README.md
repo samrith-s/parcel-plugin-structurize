@@ -17,6 +17,7 @@ Advantages of using the plugin:
 
 -   Supports excellent and fine-grained configuration for all use cases out of the box using the universally accepted glob matching patterns.
 -   Super fast and rapid restructuring means you do not need to worry about a massive overload in build times.
+    <!-- TODO:  reword this statement -->
 -   Respects `--publicUrl` while restructuring the folder to ensure the options passed to Parcel bundler are respected.
 
 ---

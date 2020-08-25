@@ -59,6 +59,7 @@ export const logs: Logs = {
     }
 };
 
+// TODO: implement `verbose` config option
 export const logger = Object.entries(logs).reduce(
     (acc, [key, func]) => ({
         ...acc,
