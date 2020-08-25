@@ -7,12 +7,13 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "build": "rimraf dist && parcel build src/index.html src/app.html",
+        "build": "parcel build src/index.html src/app.html",
         "dev": "chokidar ../../lib/**/*.js -c 'yarn build'"
     },
     "devDependencies": {
         "chokidar-cli": "file:../../node_modules/chokidar-cli",
         "parcel-bundler": "file:../../node_modules/parcel-bundler",
+        "parcel-plugin-nuke-dist": "^1.0.1",
         "parcel-plugin-structurize": "file:./node_modules/parcel-plugin-structurize",
         "sass": "^1.26.10"
     }
