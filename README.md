@@ -13,19 +13,27 @@ When building for production, Parcel outputs the build in a flat structure. In s
 
 This plugin lets you organize every file output by Parcel by matching and moving assets into your desired structure. It also updates all references in every file to ensure that the output is ready for consumption with your custom structure.
 
+Advantages of using the plugin:
+
+-   Supports excellent and fine-grained configuration for all use cases out of the box using the universally accepted glob matching patterns.
+-   Super fast and rapid restructuring means you do not need to worry about a massive overload in build times.
+-   Respects `--publicUrl` while restructuring the folder to ensure the options passed to Parcel bundler are respected.
+
+---
+
 ## Installation
 
 Installation is straight forward using NPM or Yarn:
 
 ```bash
 # Using NPM
-npm install --save-dev parcel-plugin-structurize@next
+npm install --save-dev parcel-plugin-structurize
 
 # Using Yarn
-yarn add -D parcel-plugin-structurize@next
+yarn add -D parcel-plugin-structurize
 ```
 
-Please note the use of `@next`. Without that, you will end up with the older version of the plugin.
+---
 
 ## Usage
 
@@ -72,6 +80,8 @@ There are two ways to configure the plugin:
 
 > **Note:** This plugin runs **ONLY in build** since the use-case of running it in watch or serve is not compelling enough.
 
+---
+
 ## Configuration
 
 The configuration includes two attributes:
@@ -107,9 +117,22 @@ You can provide as many Structurizers in your configuration file. The plugin shi
 }
 ```
 
+### Turning off the plugin
+
+You can turn off the plugin by two means:
+
+-   Set `rules` attribute in your config to `false`.
+-   Set environment variable `PARCEL_PLUGIN_STRUCTURIZE` to `false`. Ex:
+
+```bash
+PARCEL_PLUGIN_STRUCTURIZE=false parcel build src/index.html
+```
+
+---
+
 ## Gotchas
 
-The order of the Structurizers matter if you want to target a glob and a file ending with the same extension. To better illustrate this, let's consider the following files in your output directory:
+1. The order of the Structurizers matter if you want to target a glob and a file ending with the same extension. To better illustrate this, let's consider the following files in your output directory:
 
 -   `index.html`
 -   `contact.html`
@@ -131,6 +154,8 @@ If you want to move all HTML files into a folder called `app`, except the `index
 ]
 ```
 
+2.  You should **NOT** add any structurizer rules for `.map` files as the plugin automatically resolves and restructures the sourcemap files to reside in the same directory as its parent. This can cause unintended side-effects and may cause the plugin to crash.
+
 And the following will result in your `index.html` moved inside the `app` directory as well:
 
 ```diff
@@ -147,6 +172,8 @@ And the following will result in your `index.html` moved inside the `app` direct
 ]
 ```
 
+---
+
 ## Running locally
 
 To get the repo up and running, clone it and then run the following command:
@@ -155,10 +182,16 @@ To get the repo up and running, clone it and then run the following command:
 yarn bootstrap
 ```
 
-This should set everything up for you. To start the dev server:
+It will install all packages, link dependencies and set everything up. To start the dev server:
 
 ```shell
 yarn dev
+```
+
+To build the bundle, simple run:
+
+```shell
+yarn build
 ```
 
 ### For bundles
@@ -167,7 +200,7 @@ Bundles watch for changes to the plugin and rebuild accordingly. Once you have t
 
 ```shell
 # Replace <bundle-name> with the name of the bundle
-(cd bundles/bundle-<bundle-name> && yarn dev)
+(cd __tests__/bundle && yarn dev)
 ```
 
 [parcel]: https://parceljs.org
