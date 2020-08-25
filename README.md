@@ -3,7 +3,7 @@
 > 📢 These are the docs for v2 of parcel-plugin-structurize. For v1, check the [old branch](https://github.com/samrith-s/parcel-plugin-structurize/tree/v1).
 
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
-[![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith)
+[![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith)![Checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/Checks/badge.svg?branch=master)
 
 A [Parcel][parcel] plugin that lets you organize your output directory.
 
