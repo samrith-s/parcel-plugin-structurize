@@ -30,11 +30,15 @@
     ],
     "scripts": {
         "bootstrap": "./scripts/prepare-bundles.sh",
-        "prepublishOnly": "yarn build",
+        "prepublishOnly": "yarn build:prod",
         "lint": "eslint --fix-dry-run src/**/*.ts",
         "build": "rimraf lib && rollup -c",
+        "build:prod": "NODE_ENV=production yarn build",
+        "build:dev": "NODE_ENV=development yarn build",
         "dev": "rimraf lib && NODE_ENV=development rollup -c -w",
-        "test": "jest"
+        "test:pre": "yarn --cwd ./__tests__/bundle build",
+        "test": "yarn test:pre && jest --coverage",
+        "test:watch": "yarn test:pre && jest --coverage --watch"
     },
     "devDependencies": {
         "@babel/core": "^7.11.4",
