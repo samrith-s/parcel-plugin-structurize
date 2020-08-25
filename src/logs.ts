@@ -3,19 +3,20 @@ import chalk from 'chalk';
 import { ConfigProvider } from './core/providers/Config';
 import { AssetsGraphMap } from './core/AssetMap';
 
-type LogType<T, K = string> = (arg0?: T) => K[];
+type LogType<T, K = string> = (arg0?: T, clearLine?: boolean) => K[];
 
 type Logs = {
     welcome: LogType<never>;
     error: LogType<{ error: Error }>;
     complete: LogType<{ total: number; difference: number; fileLogs: string[] }>;
     assetMap: LogType<{ assetMap: AssetsGraphMap }, string | AssetsGraphMap>;
+    invalidConfigKey: LogType<{ key: string }>;
+    noRules: LogType<never>;
 };
 
 export const logs: Logs = {
     welcome() {
         return [
-            '',
             chalk`{cyan parcel-plugin-structurize}`,
             chalk`{dim Config: ${ConfigProvider.config.filepath}}`
         ];
@@ -45,17 +46,26 @@ export const logs: Logs = {
     },
     assetMap({ assetMap }) {
         return [assetMap];
+    },
+    invalidConfigKey({ key }) {
+        return [chalk`{yellow Ignored invalid key '${key}'}`];
+    },
+    noRules() {
+        return [
+            '',
+            chalk`{yellow No structurizers provided for 'rules' in config. parcel-plugin-structurize will have no effect.}`
+        ];
     }
 };
 
 export const logger = Object.entries(logs).reduce(
     (acc, [key, func]) => ({
         ...acc,
-        [key]: (opts: Parameters<typeof func>[0]): void => {
+        [key]: (opts: Parameters<typeof func>[0], clearLine = true): void => {
             logs[key](opts).forEach(item => {
                 console.log(' ', item);
             });
-            console.log('');
+            clearLine && console.log('');
         }
     }),
     {} as Logs

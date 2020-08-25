@@ -8,19 +8,34 @@ import { FileManager } from './core/FileManager';
 import { logger } from './logs';
 
 export default function Structurize(bundler: ParcelBundler): void {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'jest') {
+        console.log('');
+        console.log('');
         process.on('uncaughtException', errorHandler);
         process.on('unhandledRejection', errorHandler);
 
         BundlerProvider.init(bundler);
+        ConfigProvider.init();
 
         bundler.on('bundled', bundle => {
-            ConfigProvider.init();
-            logger.welcome();
-            const map = new AssetMap(bundle);
-            const fm = new FileManager(map.get());
-            fm.structurize();
+            if (shouldRunPlugin()) {
+                logger.welcome();
+                const map = new AssetMap(bundle);
+                const fm = new FileManager(map.get());
+                fm.structurize();
+            }
         });
+    }
+}
+
+function shouldRunPlugin(): boolean {
+    if (ConfigProvider.config.config.rules && process.env.PARCEL_PLUGIN_STRUCTURIZE !== 'false') {
+        if (ConfigProvider.hasRules) {
+            return true;
+        }
+
+        logger.noRules();
+        return false;
     }
 }
 
