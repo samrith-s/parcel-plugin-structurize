@@ -30,6 +30,7 @@
     ],
     "scripts": {
         "bootstrap": "./scripts/prepare-bundles.sh",
+        "bootstrap:test": "./scripts/prepare-test.sh",
         "prepublishOnly": "yarn build:prod",
         "lint": "eslint --fix-dry-run src/**/*.ts",
         "build": "rimraf lib && rollup -c",
