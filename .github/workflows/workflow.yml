@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Checks
+name: checks
 
 on:
     push:
@@ -10,25 +10,38 @@ on:
         branches: [master]
 
 jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '14'
+            - run: yarn install
+            - run: yarn lint
+
     build:
         runs-on: ${{ matrix.os }}
-
         strategy:
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
                 node-version: [12.x, 13.x, 14.x]
-
         steps:
             - uses: actions/checkout@v2
             - name: Run for Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v1
               with:
                   node-version: ${{ matrix.node-version }}
-            - name: Install
-              run: yarn install
-            - name: Lint
-              run: yarn lint
-            - name: Build
-              run: yarn build
+            - run: yarn install
+            - run: yarn build
             - name: Test
               run: yarn bootstrap:test && yarn test
+
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '14'
+            - run: yarn bootstrap:test && yarn test
