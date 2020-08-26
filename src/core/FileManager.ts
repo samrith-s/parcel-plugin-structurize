@@ -27,11 +27,11 @@ export class FileManager extends ConfigProvider {
             total: Array.from(this.assetsMap.values()).filter(
                 o => o.destination && o.config.folder !== '.'
             ).length,
-            current: 0
+            current: 0,
         };
         this.timer = {
             start: 0,
-            end: 0
+            end: 0,
         };
     }
 
@@ -95,10 +95,16 @@ export class FileManager extends ConfigProvider {
                         folder
                     )}}`
             );
+
+            if (this.config.displayAssetsMap) {
+                logger.assetMap({ assetMap: this.assetsMap });
+                // logger.clearLine();
+            }
+
             logger.complete({
                 total: this.moves.total,
                 difference,
-                fileLogs
+                fileLogs,
             });
         }
     }

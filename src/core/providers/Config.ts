@@ -12,8 +12,9 @@ export type Structurizer = {
 };
 
 export type Config = {
-    verbose?: boolean;
     rules: Structurizer[] | false;
+    verbose?: boolean;
+    displayAssetsMap?: boolean;
 };
 
 export type LoadedConfig = {
@@ -31,13 +32,13 @@ export class ConfigProvider extends BundlerProvider {
             const packageName = pkg.name;
 
             const loadedConfig = cosmiconfigSync(packageName, {
-                searchPlaces: ['package.json', `${packageName}.json`]
+                searchPlaces: ['package.json', `${packageName}.json`],
             }).search();
 
             if (!loadedConfig) {
                 ConfigProvider.config = {
                     config: DefaultConfig,
-                    filepath: 'default-config'
+                    filepath: 'default-config',
                 };
             } else {
                 ConfigProvider.config = loadedConfig;
@@ -83,6 +84,10 @@ export class ConfigProvider extends BundlerProvider {
         if (Array.isArray(rules) && !rules.length) {
             this.hasRules = false;
         }
+    }
+
+    public static isVerbose(): boolean {
+        return ConfigProvider.config.config.verbose || false;
     }
 
     protected get hasRules(): boolean {
