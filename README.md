@@ -9,17 +9,18 @@ A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory
 
 -   [Why?](#why)
 -   [Installation](#installation)
+-   [Migration from 1.x](#migrating-from-1x)
 -   [Usage](#usage)
 -   [Configuration](#configuration)
-    -   [rules](#rules)
-    -   [verbose](#verbose)
-    -   [displayAssetsMap](#displayAssetsMap)
+    -   [Options](#options)
+        -   [`rules`](#rules)
+        -   [`verbose`](#verbose)
+        -   [`displayAssetsMap`](#displayAssetsMap)
     -   [Disable plugin](#disable-plugin)
 -   [Structurizer](#structurizer)
-    -   [match](#match)
-    -   [folder](#folder)
+    -   [`match`](#match)
+    -   [`folder`](#folder)
 -   [Gotchas](#gotchas)
--   [Migration from 1.x](#migrating-from-1.x)
 -   [Contributing](#contributing)
     -   [Bundling](#bundling)
     -   [Testing](#testing)
@@ -35,7 +36,8 @@ Advantages of using the plugin:
 
 -   Supports excellent and fine-grained configuration for all use cases out of the box using [glob pattern][glob] matching
 -   Super fast and rapid restructuring means you do not need to worry about a massive overload in build times.
--   Respects `--publicUrl` passed to Parcel bundler while restructuring the folder.
+-   Respects `publicUrl` passed to Parcel bundler while restructuring the folder.
+-   Respects the `outDir` passed to Parcel bundler and only restructures files within.
 -   Sensible defaults to get you up and running quickly.
 
 ---
@@ -54,6 +56,54 @@ yarn add -D parcel-plugin-structurize
 
 ---
 
+## Migrating from 1.x
+
+Migrating from `v1` to `v2` of the plugin is super simple
+
+In your project, first upgrade the plugin:
+
+```
+yarn upgrade parcel-plugin-structurize@2.x
+```
+
+Then upgrade the configuration in `package.json`:
+
+```diff jsonc
+# package.json file
+{
+    "parcel-plugin-structurize": {
+-        "scripts": {
+-            "match": "*.{js,js.map}",
+-            "folder": "js"
+-        },
+-        "styles": {
+-            "match": "*.{css,css.map}",
+-            "folder": "css"
+-        },
+-        "assets": {
+-            "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
+-            "folder": "assets"
+-        }
++        "rules": [
++            {
++                "match": "*.js",
++                "folder": "js",
++            },
++            {
++                "match": "*.css",
++                "folder": "css",
++            },
++            {
++                "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
++                "folder": "assets",
++            },
++        ],
+    }
+}
+```
+
+---
+
 ## Usage
 
 There are two ways to configure the plugin:
@@ -63,7 +113,6 @@ There are two ways to configure the plugin:
 ```jsonc
 // package.json
 {
-    // other package.json entries
     "parcel-plugin-structurize": {
         "rules": [
             {
@@ -97,27 +146,31 @@ There are two ways to configure the plugin:
 }
 ```
 
-> **Note:** This plugin runs **ONLY in build** since the use-case of running it in watch or serve is not compelling enough.
+> **Note:** This plugin runs **ONLY** in `parcel build` or when `NODE_ENV=production`, since the use-case of running it in `watch`, `serve` or `NODE_ENV=development` is not compelling enough.
 
 ---
 
 ## Configuration
 
-The configuration includes the following attributes:
+The plugin allows for fine-grained configuration options to ensure proper customization of the output directory.
 
--   ### rules
+### Options
+
+The configuration includes the following options:
+
+-   #### `rules`
 
     `Structurizer`
 
     An array of objects which are called Structurizers.
 
--   ### verbose
+-   #### `verbose`
 
     `boolean`
 
     Whether to enable verbose logging or not.
 
--   ### displayAssetsMap
+-   #### `displayAssetsMap`
 
     `boolean`
 
@@ -147,13 +200,13 @@ Structurizer is a rule that contains match patterns and the target.
 }
 ```
 
--   ### match
+-   #### `match`
 
     `string`
 
     A glob pattern to match file names and group them to a folder.
 
--   #### folder
+-   #### `folder`
 
     `string`
 
@@ -188,13 +241,14 @@ You can provide as many Structurizers in your configuration file. The plugin shi
 
 1. The order of the Structurizers matter if you want to target a glob and a file ending with the same extension. To better illustrate this, let's consider the following files in your output directory:
 
--   `index.html`
--   `contact.html`
--   `about.html`
+    - `index.html`
+    - `contact.html`
+    - `about.html`
 
-If you want to move all HTML files into a folder called `app`, except the `index.html` then you need to keep in mind the order of the Structurizers. The following is will produce the desired results:
+    If you want to move all HTML files into a folder called `app`, except the `index.html` then you need to keep in mind the order of the Structurizers.
 
 ```diff
+# The following is will produce the desired results
 + Correct
 [
     {
@@ -206,13 +260,8 @@ If you want to move all HTML files into a folder called `app`, except the `index
         "folder": "app"
     }
 ]
-```
 
-2.  You should **NOT** add any structurizer rules for `.map` files as the plugin automatically resolves and restructures the sourcemap files to reside in the same directory as its parent. This can cause unintended side-effects and may cause the plugin to crash.
-
-And the following will result in your `index.html` moved inside the `app` directory as well:
-
-```diff
+# And the following will result in your `index.html` moved inside the `app` directory as well:
 - Incorrect
 [
     {
@@ -226,52 +275,9 @@ And the following will result in your `index.html` moved inside the `app` direct
 ]
 ```
 
+2.  You should **NOT** add any structurizer rules for `.map` files as the plugin automatically resolves and restructures the sourcemap files to reside in the same directory as its parent. This can cause unintended side-effects.
+
 ---
-
-## Migrating from 1.x
-
-Migrating from `v1` to `v2 of the plugin is super simple
-
-In your project, first upgrade the plugin:
-
-```
-yarn upgrade parcel-plugin-structurize@2.x
-```
-
-Then upgrade the configuration in `package.json`:
-
-```diff jsonc
-{
-    "parcel-plugin-structurize": {
--        "scripts": {
--            "match": "*.{js,js.map}",
--            "folder": "js"
--        },
--        "styles": {
--            "match": "*.{css,css.map}",
--            "folder": "css"
--        },
--        "assets": {
--            "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
--            "folder": "assets"
--        }
-+        "rules": [
-+            {
-+                "match": "*.js",
-+                "folder": "js",
-+            },
-+            {
-+                "match": "*.css",
-+                "folder": "css",
-+            },
-+            {
-+                "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
-+                "folder": "assets",
-+            },
-+        ],
-    }
-}
-```
 
 ## Contributing
 
