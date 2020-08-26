@@ -56,7 +56,7 @@ export class AssetMap extends ConfigProvider {
             replacer: this.generateNewPath(file, fileConfig),
             mapFile,
             dependents: null,
-            config: fileConfig
+            config: fileConfig,
         });
 
         if (depAsset.childBundles.size) {
