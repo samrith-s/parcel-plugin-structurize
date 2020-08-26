@@ -5,7 +5,7 @@
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
 [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith) ![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=master)
 
-A [Parcel][parcel] plugin that lets you organize your output directory.
+A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory.
 
 ## Why?
 
@@ -15,7 +15,7 @@ This plugin lets you organize every file output by Parcel by matching and moving
 
 Advantages of using the plugin:
 
--   Supports excellent and fine-grained configuration for all use cases out of the box using the universally accepted glob matching patterns.
+-   Supports excellent and fine-grained configuration for all use cases out of the box using [glob pattern][glob] matching
 -   Super fast and rapid restructuring means you do not need to worry about a massive overload in build times.
 -   Respects `--publicUrl` passed to Parcel bundler while restructuring the folder.
 
@@ -91,7 +91,7 @@ The configuration includes two attributes:
 
 A Structurizer has the following attributes:
 
--   `match: string`: A [glob][glob] pattern to match file names and group them to a folder.
+-   `match: string`: A glob pattern to match file names and group them to a folder.
 -   `folder: string`: The folder to place the files in. Can contain nested folders (ex: `scripts/vendors`, `images/vectors/user/avatar`)
 
 You can provide as many Structurizers in your configuration file. The plugin ships with sensible defaults.
