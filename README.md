@@ -9,6 +9,7 @@ A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory
 
 -   [Why?](#why)
 -   [Installation](#installation)
+-   [Migration from 1.x](#migrating-from-1x)
 -   [Usage](#usage)
 -   [Configuration](#configuration)
     -   [Options](#options)
@@ -20,7 +21,6 @@ A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory
     -   [`match`](#match)
     -   [`folder`](#folder)
 -   [Gotchas](#gotchas)
--   [Migration from 1.x](#migrating-from-1x)
 -   [Contributing](#contributing)
     -   [Bundling](#bundling)
     -   [Testing](#testing)
@@ -51,6 +51,53 @@ npm install --save-dev parcel-plugin-structurize
 
 # Using Yarn
 yarn add -D parcel-plugin-structurize
+```
+
+---
+
+## Migrating from 1.x
+
+Migrating from `v1` to `v2` of the plugin is super simple
+
+In your project, first upgrade the plugin:
+
+```
+yarn upgrade parcel-plugin-structurize@2.x
+```
+
+Then upgrade the configuration in `package.json`:
+
+```diff jsonc
+{
+    "parcel-plugin-structurize": {
+-        "scripts": {
+-            "match": "*.{js,js.map}",
+-            "folder": "js"
+-        },
+-        "styles": {
+-            "match": "*.{css,css.map}",
+-            "folder": "css"
+-        },
+-        "assets": {
+-            "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
+-            "folder": "assets"
+-        }
++        "rules": [
++            {
++                "match": "*.js",
++                "folder": "js",
++            },
++            {
++                "match": "*.css",
++                "folder": "css",
++            },
++            {
++                "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
++                "folder": "assets",
++            },
++        ],
+    }
+}
 ```
 
 ---
@@ -232,51 +279,6 @@ And the following will result in your `index.html` moved inside the `app` direct
 ```
 
 ---
-
-## Migrating from 1.x
-
-Migrating from `v1` to `v2 of the plugin is super simple
-
-In your project, first upgrade the plugin:
-
-```
-yarn upgrade parcel-plugin-structurize@2.x
-```
-
-Then upgrade the configuration in `package.json`:
-
-```diff jsonc
-{
-    "parcel-plugin-structurize": {
--        "scripts": {
--            "match": "*.{js,js.map}",
--            "folder": "js"
--        },
--        "styles": {
--            "match": "*.{css,css.map}",
--            "folder": "css"
--        },
--        "assets": {
--            "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
--            "folder": "assets"
--        }
-+        "rules": [
-+            {
-+                "match": "*.js",
-+                "folder": "js",
-+            },
-+            {
-+                "match": "*.css",
-+                "folder": "css",
-+            },
-+            {
-+                "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
-+                "folder": "assets",
-+            },
-+        ],
-    }
-}
-```
 
 ## Contributing
 
