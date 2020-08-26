@@ -7,24 +7,24 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+## Describe the bug
 <!-- A clear and concise description of what the bug is. -->
 
-**Error messages**
+## Error messages
 <!-- Please format the appropriately -->
 ```shell
 Paste your error here
 ```
 
-**Expected behavior**
+## Expected behavior
 <!-- A clear and concise description of what you expected to happen. -->
 
-**Screenshots**
+## Screenshots
 <!-- If applicable, add screenshots to help explain your problem. -->
 
-**Information:**
+## Information
 - Package version: [eg. 2.0.0.aplha.0]
 - Node version: [eg. 14.1.2]
 
-**Additional context**
+## Additional context
 <!-- Add any other context about the problem here. -->
