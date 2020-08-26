@@ -113,7 +113,6 @@ There are two ways to configure the plugin:
 ```jsonc
 // package.json
 {
-    // other package.json entries
     "parcel-plugin-structurize": {
         "rules": [
             {
@@ -157,7 +156,7 @@ The plugin allows for fine-grained configuration options to ensure proper custom
 
 ### Options
 
-The configuration includes the following attributes:
+The configuration includes the following options:
 
 -   #### `rules`
 
