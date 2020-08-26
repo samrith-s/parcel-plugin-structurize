@@ -1,5 +1,6 @@
 {
     "verbose": true,
+    "displayAssetsMap": true,
     "rules": [
         {
             "match": "*.js",
