@@ -11,13 +11,14 @@ A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory
 -   [Installation](#installation)
 -   [Usage](#usage)
 -   [Configuration](#configuration)
-    -   [rules](#rules)
-    -   [verbose](#verbose)
-    -   [displayAssetsMap](#displayAssetsMap)
+    -   [Options](#options)
+        -   [`rules`](#rules)
+        -   [`verbose`](#verbose)
+        -   [`displayAssetsMap`](#displayAssetsMap)
     -   [Disable plugin](#disable-plugin)
 -   [Structurizer](#structurizer)
-    -   [match](#match)
-    -   [folder](#folder)
+    -   [`match`](#match)
+    -   [`folder`](#folder)
 -   [Gotchas](#gotchas)
 -   [Migration from 1.x](#migrating-from-1.x)
 -   [Contributing](#contributing)
@@ -103,21 +104,25 @@ There are two ways to configure the plugin:
 
 ## Configuration
 
+The plugin allows for fine-grained configuration options to ensure proper customization of the output directory.
+
+### Options
+
 The configuration includes the following attributes:
 
--   ### rules
+-   ### `rules`
 
     `Structurizer`
 
     An array of objects which are called Structurizers.
 
--   ### verbose
+-   ### `verbose`
 
     `boolean`
 
     Whether to enable verbose logging or not.
 
--   ### displayAssetsMap
+-   ### `displayAssetsMap`
 
     `boolean`
 
@@ -147,13 +152,13 @@ Structurizer is a rule that contains match patterns and the target.
 }
 ```
 
--   ### match
+-   ### `match`
 
     `string`
 
     A glob pattern to match file names and group them to a folder.
 
--   #### folder
+-   #### `folder`
 
     `string`
 
