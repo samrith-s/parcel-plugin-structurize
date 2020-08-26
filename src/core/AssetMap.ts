@@ -83,7 +83,10 @@ export class AssetMap extends ConfigProvider {
         return fileConfig
             ? path.join(
                   destination ? this.bundlerConfig.outDir : this.bundlerConfig.publicUrl,
-                  sanitize(fileConfig.folder),
+                  fileConfig.folder
+                      .split('/')
+                      .map(name => sanitize(name))
+                      .join('/'),
                   file
               )
             : null;
