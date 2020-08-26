@@ -20,7 +20,7 @@ export class BundlerProvider {
     protected get bundlerConfig(): ParcelOptions {
         return {
             ...this.bundler['options'],
-            publicUrl: this.bundler['options'].publicURL || '/'
+            publicUrl: this.bundler['options'].publicURL || '/',
         };
     }
 }
