@@ -20,7 +20,7 @@ A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory
     -   [`match`](#match)
     -   [`folder`](#folder)
 -   [Gotchas](#gotchas)
--   [Migration from 1.x](#migrating-from-1.x)
+-   [Migration from 1.x](#migrating-from-1x)
 -   [Contributing](#contributing)
     -   [Bundling](#bundling)
     -   [Testing](#testing)
