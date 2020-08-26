@@ -69,6 +69,7 @@ yarn upgrade parcel-plugin-structurize@2.x
 Then upgrade the configuration in `package.json`:
 
 ```diff jsonc
+# package.json file
 {
     "parcel-plugin-structurize": {
 -        "scripts": {
