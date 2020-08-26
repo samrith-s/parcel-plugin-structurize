@@ -3,7 +3,7 @@
 > 📢 These are the docs for v2 of parcel-plugin-structurize. For v1, check the [old branch](https://github.com/samrith-s/parcel-plugin-structurize/tree/v1).
 
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
-[![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith)![Checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/Checks/badge.svg?branch=master)
+[![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith) ![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=master)
 
 A [Parcel][parcel] plugin that lets you organize your output directory.
 
@@ -17,8 +17,7 @@ Advantages of using the plugin:
 
 -   Supports excellent and fine-grained configuration for all use cases out of the box using the universally accepted glob matching patterns.
 -   Super fast and rapid restructuring means you do not need to worry about a massive overload in build times.
-    <!-- TODO:  reword this statement -->
--   Respects `--publicUrl` while restructuring the folder to ensure the options passed to Parcel bundler are respected.
+-   Respects `--publicUrl` passed to Parcel bundler while restructuring the folder.
 
 ---
 
