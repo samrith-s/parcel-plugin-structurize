@@ -158,19 +158,19 @@ The plugin allows for fine-grained configuration options to ensure proper custom
 
 The configuration includes the following attributes:
 
--   ### `rules`
+-   #### `rules`
 
     `Structurizer`
 
     An array of objects which are called Structurizers.
 
--   ### `verbose`
+-   #### `verbose`
 
     `boolean`
 
     Whether to enable verbose logging or not.
 
--   ### `displayAssetsMap`
+-   #### `displayAssetsMap`
 
     `boolean`
 
@@ -200,7 +200,7 @@ Structurizer is a rule that contains match patterns and the target.
 }
 ```
 
--   ### `match`
+-   #### `match`
 
     `string`
 
