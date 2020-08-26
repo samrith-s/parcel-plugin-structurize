@@ -241,13 +241,14 @@ You can provide as many Structurizers in your configuration file. The plugin shi
 
 1. The order of the Structurizers matter if you want to target a glob and a file ending with the same extension. To better illustrate this, let's consider the following files in your output directory:
 
--   `index.html`
--   `contact.html`
--   `about.html`
+    - `index.html`
+    - `contact.html`
+    - `about.html`
 
-If you want to move all HTML files into a folder called `app`, except the `index.html` then you need to keep in mind the order of the Structurizers. The following is will produce the desired results:
+    If you want to move all HTML files into a folder called `app`, except the `index.html` then you need to keep in mind the order of the Structurizers.
 
 ```diff
+# The following is will produce the desired results
 + Correct
 [
     {
@@ -259,13 +260,8 @@ If you want to move all HTML files into a folder called `app`, except the `index
         "folder": "app"
     }
 ]
-```
 
-2.  You should **NOT** add any structurizer rules for `.map` files as the plugin automatically resolves and restructures the sourcemap files to reside in the same directory as its parent. This can cause unintended side-effects and may cause the plugin to crash.
-
-And the following will result in your `index.html` moved inside the `app` directory as well:
-
-```diff
+# And the following will result in your `index.html` moved inside the `app` directory as well:
 - Incorrect
 [
     {
@@ -278,6 +274,8 @@ And the following will result in your `index.html` moved inside the `app` direct
     }
 ]
 ```
+
+2.  You should **NOT** add any structurizer rules for `.map` files as the plugin automatically resolves and restructures the sourcemap files to reside in the same directory as its parent. This can cause unintended side-effects.
 
 ---
 
