@@ -21,6 +21,16 @@ jobs:
             - run: yarn lint
 
     build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+                with:
+                    node-version: '14'
+            - run: yarn install
+            - run: yarn build
+
+    bundle:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -33,9 +43,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - run: yarn install
-            - run: yarn build
-            - name: Test
-              run: yarn bootstrap:test && yarn test
+            - run: yarn test:bundle
 
     test:
         runs-on: ubuntu-latest
