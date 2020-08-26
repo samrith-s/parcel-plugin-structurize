@@ -1,11 +1,29 @@
 # parcel-plugin-structurize
 
-> 📢 These are the docs for v2 of parcel-plugin-structurize. For v1, check the [old branch](https://github.com/samrith-s/parcel-plugin-structurize/tree/v1).
-
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
 [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith) ![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=master)
 
 A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory.
+
+## Table of Contents
+
+-   [Why?](#why)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Configuration](#configuration)
+    -   [rules](#rules)
+    -   [verbose](#verbose)
+    -   [displayAssetsMap](#displayAssetsMap)
+    -   [Disable plugin](#disable-plugin)
+-   [Structurizer](#structurizer)
+    -   [match](#match)
+    -   [folder](#folder)
+-   [Gotchas](#gotchas)
+-   [Migration from 1.x](#migrating-from-1.x)
+-   [Contributing](#contributing)
+    -   [Bundling](#bundling)
+    -   [Testing](#testing)
+    -   [Bugs and issues](#bugs-and-issues)
 
 ## Why?
 
@@ -18,6 +36,7 @@ Advantages of using the plugin:
 -   Supports excellent and fine-grained configuration for all use cases out of the box using [glob pattern][glob] matching
 -   Super fast and rapid restructuring means you do not need to worry about a massive overload in build times.
 -   Respects `--publicUrl` passed to Parcel bundler while restructuring the folder.
+-   Sensible defaults to get you up and running quickly.
 
 ---
 
@@ -84,15 +103,61 @@ There are two ways to configure the plugin:
 
 ## Configuration
 
-The configuration includes two attributes:
+The configuration includes the following attributes:
 
--   `rules: Structurizer`: An array of objects which are called Structurizers.
--   `verbose: boolean`: Whether to enable verbose logging or not.
+-   ### rules
 
-A Structurizer has the following attributes:
+    `Structurizer`
 
--   `match: string`: A glob pattern to match file names and group them to a folder.
--   `folder: string`: The folder to place the files in. Can contain nested folders (ex: `scripts/vendors`, `images/vectors/user/avatar`)
+    An array of objects which are called Structurizers.
+
+-   ### verbose
+
+    `boolean`
+
+    Whether to enable verbose logging or not.
+
+-   ### displayAssetsMap
+
+    `boolean`
+
+    Whether to display the generated assets map or not. This only comes into effect if `verbose` is `true`.
+
+### Disable plugin
+
+You can disable the plugin by two means:
+
+-   Set `rules` attribute in your config to `false`.
+-   Set environment variable `PARCEL_PLUGIN_STRUCTURIZE` to `false`. Ex:
+
+```bash
+PARCEL_PLUGIN_STRUCTURIZE=false parcel build src/index.html
+```
+
+---
+
+## Structurizer
+
+Structurizer is a rule that contains match patterns and the target.
+
+```ts
+{
+    "match": string
+    "folder": string
+}
+```
+
+-   ### match
+
+    `string`
+
+    A glob pattern to match file names and group them to a folder.
+
+-   #### folder
+
+    `string`
+
+    The folder to place the files in. Can contain nested folders (ex: `scripts/vendors`, `images/vectors/user/avatar`)
 
 You can provide as many Structurizers in your configuration file. The plugin ships with sensible defaults.
 
@@ -115,17 +180,6 @@ You can provide as many Structurizers in your configuration file. The plugin shi
         }
     ]
 }
-```
-
-### Turning off the plugin
-
-You can turn off the plugin by two means:
-
--   Set `rules` attribute in your config to `false`.
--   Set environment variable `PARCEL_PLUGIN_STRUCTURIZE` to `false`. Ex:
-
-```bash
-PARCEL_PLUGIN_STRUCTURIZE=false parcel build src/index.html
 ```
 
 ---
@@ -174,9 +228,54 @@ And the following will result in your `index.html` moved inside the `app` direct
 
 ---
 
-## Running locally
+## Migrating from 1.x
 
-To get the repo up and running, clone it and then run the following command:
+Migrating from `v1` to `v2 of the plugin is super simple
+
+In your project, first upgrade the plugin:
+
+```
+yarn upgrade parcel-plugin-structurize@2.x
+```
+
+Then upgrade the configuration in `package.json`:
+
+```diff jsonc
+{
+    "parcel-plugin-structurize": {
+-        "scripts": {
+-            "match": "*.{js,js.map}",
+-            "folder": "js"
+-        },
+-        "styles": {
+-            "match": "*.{css,css.map}",
+-            "folder": "css"
+-        },
+-        "assets": {
+-            "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
+-            "folder": "assets"
+-        }
++        "rules": [
++            {
++                "match": "*.js",
++                "folder": "js",
++            },
++            {
++                "match": "*.css",
++                "folder": "css",
++            },
++            {
++                "match": "*.{png,svg,jpg,jpg2,jpeg,gif,bmp,webm}",
++                "folder": "assets",
++            },
++        ],
+    }
+}
+```
+
+## Contributing
+
+To get the project up and running, clone it and then run the following command:
 
 ```shell
 yarn bootstrap
@@ -194,15 +293,27 @@ To build the bundle, simple run:
 yarn build
 ```
 
-### For bundles
+### Bundling
 
-Bundles watch for changes to the plugin and rebuild accordingly. Once you have the plugin running in dev mode, you can run the following command for the bundles:
+Bundles watch for changes to the plugin and rebuild with Parcel bundler, causing the plugin to trigger. Once you have the plugin running in dev mode, you can run the following command for the bundles:
 
 ```shell
-# Replace <bundle-name> with the name of the bundle
 (cd __tests__/bundle && yarn dev)
 ```
 
+### Testing
+
+To test you can run:
+
+```shell
+yarn test:watch
+```
+
+### Bugs and issues
+
+Please report any bugs [here][issue]. For any questions feel free to [create an issue][question].
+
 [parcel]: https://parceljs.org
 [glob]: https://en.wikipedia.org/wiki/Glob_(programming)
-[v2]: https://github.com/samrith-s/parcel-plugin-structurize/issues/25
+[issue]: https://github.com/samrith-s/parcel-plugin-structurize/issues/new?assignees=&labels=bug%2C+v2&template=bug-report--v2-.md&title=%5B%F0%9F%90%9B%5D+Bug%3A+
+[question]: https://github.com/samrith-s/parcel-plugin-structurize/issues/new?assignees=&labels=question%2C+v2&template=question.md&title=%5B%E2%9D%94%5D+Question%3A+
