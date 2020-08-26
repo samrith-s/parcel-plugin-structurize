@@ -39,6 +39,7 @@
         "dev": "rimraf lib && NODE_ENV=development rollup -c -w",
         "test:pre": "yarn --cwd ./__tests__/bundle build",
         "test": "yarn test:pre && jest --coverage",
+        "test:bundle": "./scripts/test-bundle.sh",
         "test:watch": "yarn test:pre && jest --coverage --watch"
     },
     "devDependencies": {
