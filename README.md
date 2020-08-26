@@ -36,8 +36,8 @@ Advantages of using the plugin:
 
 -   Supports excellent and fine-grained configuration for all use cases out of the box using [glob pattern][glob] matching
 -   Super fast and rapid restructuring means you do not need to worry about a massive overload in build times.
--   Respects `--publicUrl` passed to Parcel bundler while restructuring the folder.
--   Respects the `--outDir` passed to Parcel bundler and only restructures files within.
+-   Respects `publicUrl` passed to Parcel bundler while restructuring the folder.
+-   Respects the `outDir` passed to Parcel bundler and only restructures files within.
 -   Sensible defaults to get you up and running quickly.
 
 ---
