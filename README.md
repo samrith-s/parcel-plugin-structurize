@@ -146,7 +146,7 @@ There are two ways to configure the plugin:
 }
 ```
 
-> **Note:** This plugin runs **ONLY** in `parcel build` or when `NODE_ENV` is `production`, since the use-case of running it in watch or serve is not compelling enough.
+> **Note:** This plugin runs **ONLY** in `parcel build` or when `NODE_ENV=production`, since the use-case of running it in `watch`, `serve` or `NODE_ENV=development` is not compelling enough.
 
 ---
 
