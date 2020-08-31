@@ -3,9 +3,9 @@
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
 [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith) ![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=master)
 
-A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory.
+A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory folder structure.
 
-## Table of Contents
+## 🗃 Table of Contents
 
 -   [Why?](#why)
 -   [Installation](#installation)
@@ -26,7 +26,7 @@ A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory
     -   [Testing](#testing)
     -   [Bugs and issues](#bugs-and-issues)
 
-## Why?
+## 🤔 Why?
 
 When building for production, Parcel outputs the build in a flat structure. In some cases, we might need a particular structure for the built output.
 
@@ -42,7 +42,7 @@ Advantages of using the plugin:
 
 ---
 
-## Installation
+## 🔌 Installation
 
 Installation is straight forward using NPM or Yarn:
 
@@ -56,7 +56,7 @@ yarn add -D parcel-plugin-structurize
 
 ---
 
-## Migrating from 1.x
+## 🚛 Migrating from 1.x
 
 Migrating from `v1` to `v2` of the plugin is super simple
 
@@ -104,7 +104,7 @@ Then upgrade the configuration in `package.json`:
 
 ---
 
-## Usage
+## 🏃‍♀️ Usage
 
 There are two ways to configure the plugin:
 
@@ -150,7 +150,7 @@ There are two ways to configure the plugin:
 
 ---
 
-## Configuration
+## 🛠 Configuration
 
 The plugin allows for fine-grained configuration options to ensure proper customization of the output directory.
 
@@ -189,7 +189,7 @@ PARCEL_PLUGIN_STRUCTURIZE=false parcel build src/index.html
 
 ---
 
-## Structurizer
+## 🧱 Structurizer
 
 Structurizer is a rule that contains match patterns and the target.
 
@@ -237,7 +237,7 @@ You can provide as many Structurizers in your configuration file. The plugin shi
 
 ---
 
-## Gotchas
+## ❗️ Gotchas
 
 1. The order of the Structurizers matter if you want to target a glob and a file ending with the same extension. To better illustrate this, let's consider the following files in your output directory:
 
@@ -279,7 +279,7 @@ You can provide as many Structurizers in your configuration file. The plugin shi
 
 ---
 
-## Contributing
+## 🐠 Contributing
 
 To get the project up and running, clone it and then run the following command:
 
