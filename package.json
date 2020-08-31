@@ -27,7 +27,11 @@
         "plugin",
         "structure",
         "build",
-        "folders"
+        "folders",
+        "assets",
+        "dist",
+        "output",
+        "outDir"
     ],
     "scripts": {
         "bootstrap": "./scripts/prepare-bundles.sh",
