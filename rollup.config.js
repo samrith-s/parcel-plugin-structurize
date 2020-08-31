@@ -30,5 +30,5 @@ export default {
         exports: 'auto',
     },
     plugins,
-    external: [...builtins],
+    external: [...builtins, ...Object.keys(pkg.dependencies)],
 };
