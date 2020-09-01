@@ -7,7 +7,7 @@ A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory
 
 ## 🗃 Table of Contents
 
--   [Why?](#why)
+-   [Why?](#-why)
 -   [Installation](#-installation)
 -   [Migration from 1.x](#-migrating-from-1x)
 -   [Usage](#-usage)
