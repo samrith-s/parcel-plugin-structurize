@@ -10,7 +10,7 @@
         },
         {
             "type": "docs",
-            "section": "Documentation"
+            "hidden": true
         },
         {
             "type": "chore",
