@@ -5,6 +5,9 @@
         "source.fixAll": true
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.associations": {
+        ".*rc": "json"
+    },
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
