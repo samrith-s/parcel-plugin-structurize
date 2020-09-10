@@ -1,6 +1,6 @@
 {
     "name": "parcel-plugin-structurize",
-    "version": "2.1.3",
+    "version": "2.2.0",
     "description": "A Parcel plugin that lets you customize your output (dist) directory structure.",
     "author": "Samrith Shankar <samrith@outlook.com> (https://twitter.com/tueieo)",
     "license": "MIT",
@@ -45,7 +45,8 @@
         "test:pre": "yarn --cwd ./__tests__/bundle build",
         "test": "yarn test:pre && jest --coverage",
         "test:bundle": "./scripts/test-bundle.sh",
-        "test:watch": "yarn test:pre && jest --coverage --watch"
+        "test:watch": "yarn test:pre && jest --coverage --watch",
+        "release": "standard-version"
     },
     "devDependencies": {
         "@babel/core": "^7.11.4",
