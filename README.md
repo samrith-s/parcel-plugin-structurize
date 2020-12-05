@@ -58,7 +58,7 @@ yarn add -D parcel-plugin-structurize
 
 ## 🚛 Migrating from 1.x
 
-Migrating from `v1` to `v2` of the plugin is super simple
+Migrating from `v1` to `v2` of the plugin is super simple.
 
 In your project, first upgrade the plugin:
 
@@ -293,7 +293,7 @@ It will install all packages, link dependencies and set everything up. To start 
 yarn dev
 ```
 
-To build the bundle, simple run:
+To build the bundle, simply run:
 
 ```shell
 yarn build
