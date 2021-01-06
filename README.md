@@ -1,9 +1,13 @@
 # parcel-plugin-structurize
 
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
-[![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://www.patreon.com/samrith) ![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=master)
+![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=master)
 
 A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory folder structure.
+
+If you ❤️ this plugin and want to support, you can buy me a coffee!
+
+<a href="https://www.buymeacoffee.com/Sz4V6TJlU" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="125" /></a>
 
 ## 🗃 Table of Contents
 
