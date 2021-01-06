@@ -4,7 +4,6 @@ import { lstatSync, readdirSync } from 'fs';
 import { Structurizer } from '../src/core/providers/Config';
 
 import BundleConfig from './bundle/parcel-plugin-structurize.json';
-import { stringify } from 'querystring';
 
 export function getBundleDirectories(bundleDir: string): string[] {
     return readdirSync(bundleDir).filter(dir => lstatSync(path.join(bundleDir, dir)).isDirectory());
