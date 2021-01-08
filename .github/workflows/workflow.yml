@@ -5,9 +5,9 @@ name: checks
 
 on:
     push:
-        branches: [master]
+        branches: [main]
     pull_request:
-        branches: [master]
+        branches: [main]
 
 jobs:
     lint:
@@ -35,7 +35,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
-                node-version: [12.x, 13.x, 14.x]
+                node-version: [12.x, 13.x, 14.x, 15.x]
         steps:
             - uses: actions/checkout@v2
             - name: Run for Node.js ${{ matrix.node-version }}
@@ -45,10 +45,14 @@ jobs:
             - run: yarn test:bundle
 
     test:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest, macos-latest, windows-latest]
+                node-version: [12.x, 13.x, 14.x, 15.x]
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v1
               with:
-                  node-version: '14'
+                  node-version: ${{ matrix.node-version }}
             - run: yarn bootstrap:test && yarn test
