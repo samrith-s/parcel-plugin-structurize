@@ -44,7 +44,6 @@ export class FileManager extends ConfigProvider {
 
     private rewriteAsset(asset: AssetGraph): void {
         if (this.isWriteable(asset.source)) {
-            console.log('asset', asset.source);
             readFile(asset.source, (error, contents) => {
                 if (error) {
                     throw error;
