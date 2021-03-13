@@ -2,7 +2,6 @@ import { readFile, writeFileSync } from 'fs';
 import * as path from 'path';
 import moveFile from 'move-file';
 import chalk from 'chalk';
-import isImage from 'is-image';
 
 import { ConfigProvider } from './providers/Config';
 import { AssetsGraphMap, AssetGraph } from './AssetMap';
@@ -44,7 +43,8 @@ export class FileManager extends ConfigProvider {
     }
 
     private rewriteAsset(asset: AssetGraph): void {
-        if (!isImage(asset.source)) {
+        if (this.isWriteable(asset.source)) {
+            console.log('asset', asset.source);
             readFile(asset.source, (error, contents) => {
                 if (error) {
                     throw error;
@@ -58,6 +58,11 @@ export class FileManager extends ConfigProvider {
         } else {
             this.moveAsset(asset);
         }
+    }
+
+    private isWriteable(source: string) {
+        const extension = path.extname(source);
+        return /(js|css|html|map)$/.test(extension);
     }
 
     private async moveAsset(asset: AssetGraph): Promise<void> {
