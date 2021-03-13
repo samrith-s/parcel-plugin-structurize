@@ -252,7 +252,7 @@ You can provide as many Structurizers in your configuration file. The plugin shi
     If you want to move all HTML files into a folder called `app`, except the `index.html` then you need to keep in mind the order of the Structurizers.
 
 ```diff
-# The following is will produce the desired results
+# The following will produce the desired results
 + Correct
 [
     {
@@ -265,7 +265,7 @@ You can provide as many Structurizers in your configuration file. The plugin shi
     }
 ]
 
-# And the following will result in your `index.html` moved inside the `app` directory as well:
+# And the following will result in your `index.html` to be placed inside the `app` directory as well
 - Incorrect
 [
     {
