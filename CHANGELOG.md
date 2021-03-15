@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.5](https://github.com/samrith-s/parcel-plugin-structurize/compare/v2.3.4...v2.3.5) (2021-03-15)
+
+
+### Bug Fixes
+
+* [#31](https://github.com/samrith-s/parcel-plugin-structurize/issues/31) ([e507bb2](https://github.com/samrith-s/parcel-plugin-structurize/commit/e507bb2c03a62ca65c6161ba686f48889b449d55))
+
 ### [2.3.4](https://github.com/samrith-s/parcel-plugin-structurize/compare/v2.3.3...v2.3.4) (2021-03-13)
 
 ### [2.3.3](https://github.com/samrith-s/parcel-plugin-structurize/compare/v2.3.2...v2.3.3) (2021-03-13)
