@@ -29,7 +29,7 @@ export const logs: Logs = {
     },
     error({ error }) {
         return [
-            chalk`{yellow The plugin "parcel-plugin-custom-dist-structure" has encountered an error.}`,
+            chalk`{yellow The plugin "parcel-plugin-structurize" has encountered an error.}`,
             '',
             chalk`{red ${error.stack}}`,
             '',
