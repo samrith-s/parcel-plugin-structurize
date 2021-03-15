@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/samrith-s/parcel-plugin-structurize/compare/v2.3.5...v2.4.0) (2021-03-15)
+
+
+### Features
+
+* add `flatten` option to structurizer ([4550c18](https://github.com/samrith-s/parcel-plugin-structurize/commit/4550c18c8001c165338247c54ea9216df0c1f433))
+* implement `flatten` and fix [#31](https://github.com/samrith-s/parcel-plugin-structurize/issues/31) ([cea6eea](https://github.com/samrith-s/parcel-plugin-structurize/commit/cea6eeaf75d582dd3d0680597a64359cd8573091))
+
 ### [2.3.5](https://github.com/samrith-s/parcel-plugin-structurize/compare/v2.3.4...v2.3.5) (2021-03-15)
 
 
