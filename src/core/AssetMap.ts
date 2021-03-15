@@ -40,8 +40,13 @@ export class AssetMap extends ConfigProvider {
         }
     }
 
+    private getFile(depAsset: ParcelBundle): string {
+        const isRelative = depAsset.type === 'html' && !!depAsset.entryAsset?.relativeName;
+        return isRelative ? depAsset.entryAsset?.relativeName : path.basename(depAsset.name);
+    }
+
     private iterativeDependencyResolver(depAsset: ParcelBundle): void {
-        const file = depAsset.entryAsset.relativeName || depAsset.name;
+        const file = this.getFile(depAsset);
         const extension = path.extname(file);
         const mapFile = extension === '.map';
         const fileConfig = (this.config.rules as Structurizer[]).find(c => {
@@ -62,10 +67,8 @@ export class AssetMap extends ConfigProvider {
         if (depAsset.childBundles.size) {
             const currentMap = this.assetsMap.get(currentPath);
             currentMap.dependents = [];
-            depAsset.childBundles.forEach(childBundle => {
-                currentMap.dependents.push(
-                    this.generateCurrentPath(path.basename(childBundle.name))
-                );
+            depAsset.childBundles.forEach((childBundle: ParcelBundle) => {
+                currentMap.dependents.push(this.generateCurrentPath(this.getFile(childBundle)));
                 this.iterativeDependencyResolver(childBundle);
             });
         }
@@ -87,7 +90,7 @@ export class AssetMap extends ConfigProvider {
                       .split('/')
                       .map(name => sanitize(name))
                       .join('/'),
-                  file
+                  fileConfig.flatten ? path.basename(file) : file
               )
             : null;
     }

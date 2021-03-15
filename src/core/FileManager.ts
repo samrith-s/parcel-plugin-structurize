@@ -2,6 +2,7 @@ import { readFile, writeFileSync } from 'fs';
 import * as path from 'path';
 import moveFile from 'move-file';
 import chalk from 'chalk';
+import deleteEmpty from 'delete-empty';
 
 import { ConfigProvider } from './providers/Config';
 import { AssetsGraphMap, AssetGraph } from './AssetMap';
@@ -113,6 +114,8 @@ export class FileManager extends ConfigProvider {
                 difference,
                 fileLogs,
             });
+
+            deleteEmpty.sync(path.resolve(this.bundlerConfig.outDir));
         }
     }
 }
