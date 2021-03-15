@@ -1,7 +1,7 @@
 # parcel-plugin-structurize
 
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
-![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=master)
+![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=main)
 
 A [Parcel][parcel] plugin that lets you customize your output (`dist`) directory folder structure.
 
@@ -24,6 +24,7 @@ If you ❤️ this plugin and want to support, you can buy me a coffee!
 -   [Structurizer](#-structurizer)
     -   [`match`](#match)
     -   [`folder`](#folder)
+    -   [`flatten`](#flatten)
 -   [Gotchas](#-gotchas)
 -   [Contributing](#-contributing)
     -   [Bundling](#bundling)
@@ -198,10 +199,11 @@ PARCEL_PLUGIN_STRUCTURIZE=false parcel build src/index.html
 Structurizer is a rule that contains match patterns and the target.
 
 ```ts
-{
-    "match": string
-    "folder": string
-}
+type Config = {
+    match: string;
+    folder: string;
+    flatten?: boolean;
+};
 ```
 
 -   #### `match`
@@ -216,6 +218,12 @@ Structurizer is a rule that contains match patterns and the target.
 
     The folder to place the files in. Can contain nested folders (ex: `scripts/vendors`, `images/vectors/user/avatar`)
 
+-   #### `flatten`
+
+    `boolean`
+
+    For nested files, whether to flatten them to the output folder or not.
+
 You can provide as many Structurizers in your configuration file. The plugin ships with sensible defaults.
 
 ```jsonc
@@ -225,15 +233,18 @@ You can provide as many Structurizers in your configuration file. The plugin shi
     "rules": [
         {
             "match": "*.js",
-            "folder": "js"
+            "folder": "js",
+            "flatten": false
         },
         {
             "match": "*.css",
-            "folder": "css"
+            "folder": "css",
+            "flatten": false
         },
         {
             "match": "*.{jpg,jpeg,jpeg2,png,gif,svg,bmp,webp}",
-            "folder": "assets"
+            "folder": "assets",
+            "flatten": false
         }
     ]
 }
