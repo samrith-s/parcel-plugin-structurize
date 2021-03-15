@@ -9,6 +9,7 @@ import { BundlerProvider } from './Bundler';
 export type Structurizer = {
     match: string;
     folder: string;
+    flatten?: boolean;
 };
 
 export type Config = {
