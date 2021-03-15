@@ -19,8 +19,9 @@
             "folder": "."
         },
         {
-            "match": "*.html",
-            "folder": "html"
+            "match": "**/*.html",
+            "folder": "hehe",
+            "flatten": true
         }
     ]
 }

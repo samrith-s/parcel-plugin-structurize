@@ -7,7 +7,7 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "build": "parcel build src/index.html src/app.html",
+        "build": "parcel build src/index.html",
         "dev": "chokidar ../../lib/**/*.js -c 'yarn build'"
     },
     "devDependencies": {
