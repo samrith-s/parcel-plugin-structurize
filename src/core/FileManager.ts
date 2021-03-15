@@ -78,8 +78,7 @@ export class FileManager extends ConfigProvider {
 
         return dependents.reduce((newContent, dependent) => {
             const thisDependent = this.assetsMap.get(dependent);
-
-            if (thisDependent.replacer) {
+            if (thisDependent?.replacer) {
                 newContent = newContent.replace(dependent, thisDependent.replacer);
             }
 
@@ -107,7 +106,6 @@ export class FileManager extends ConfigProvider {
 
             if (this.config.displayAssetsMap) {
                 logger.assetMap({ assetMap: this.assetsMap });
-                // logger.clearLine();
             }
 
             logger.complete({

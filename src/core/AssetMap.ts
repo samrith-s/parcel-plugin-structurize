@@ -41,7 +41,7 @@ export class AssetMap extends ConfigProvider {
     }
 
     private iterativeDependencyResolver(depAsset: ParcelBundle): void {
-        const file = path.basename(depAsset.name);
+        const file = depAsset.entryAsset.relativeName || depAsset.name;
         const extension = path.extname(file);
         const mapFile = extension === '.map';
         const fileConfig = (this.config.rules as Structurizer[]).find(c => {
