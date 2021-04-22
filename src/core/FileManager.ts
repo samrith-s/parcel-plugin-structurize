@@ -3,6 +3,7 @@ import * as path from 'path';
 import moveFile from 'move-file';
 import chalk from 'chalk';
 import deleteEmpty from 'delete-empty';
+import replaceAll from 'string.prototype.replaceall';
 
 import { ConfigProvider } from './providers/Config';
 import { AssetsGraphMap, AssetGraph } from './AssetMap';
@@ -80,7 +81,7 @@ export class FileManager extends ConfigProvider {
         return dependents.reduce((newContent, dependent) => {
             const thisDependent = this.assetsMap.get(dependent);
             if (thisDependent?.replacer) {
-                newContent = newContent.replace(dependent, thisDependent.replacer);
+                newContent = replaceAll(newContent, dependent, thisDependent.replacer);
             }
 
             return newContent;
