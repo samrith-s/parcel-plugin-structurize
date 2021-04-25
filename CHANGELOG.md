@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/samrith-s/parcel-plugin-structurize/compare/v2.4.0...v2.4.1) (2021-04-25)
+
+
+### Bug Fixes
+
+* relative paths result in ENOENT ([#31](https://github.com/samrith-s/parcel-plugin-structurize/issues/31)) ([c32ed84](https://github.com/samrith-s/parcel-plugin-structurize/commit/c32ed84ecfefe9e1d39c1aa6e24e2d74145b3387))
+
 ## [2.4.0](https://github.com/samrith-s/parcel-plugin-structurize/compare/v2.3.5...v2.4.0) (2021-03-15)
 
 
