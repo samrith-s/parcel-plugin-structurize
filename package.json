@@ -1,6 +1,7 @@
 {
     "name": "parcel-plugin-structurize",
     "version": "2.4.1",
+    "private": true,
     "description": "A Parcel plugin that lets you customize your output (dist) directory structure.",
     "author": "Samrith Shankar <samrith@outlook.com> (https://twitter.com/tueieo)",
     "license": "MIT",
@@ -10,6 +11,10 @@
         "lib",
         "LICENSE",
         "README.md"
+    ],
+    "workspaces": [
+        "./",
+        "./__tests__/bundle"
     ],
     "repository": {
         "type": "git",
@@ -94,5 +99,8 @@
         "minimatch": "^3.0.4",
         "move-file": "^2.0.0",
         "sanitize-filename": "^1.6.3"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
