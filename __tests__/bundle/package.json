@@ -11,7 +11,7 @@
         "dev": "chokidar ../../lib/**/*.js -c 'yarn build'"
     },
     "devDependencies": {
-        "chokidar-cli": "file:../../node_modules/chokidar-cli",
+        "chokidar-cli": "^2.1.0",
         "parcel-bundler": "file:../../node_modules/parcel-bundler",
         "parcel-plugin-structurize": "file:../..",
         "sass": "^1.26.10"

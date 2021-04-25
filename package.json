@@ -1,7 +1,6 @@
 {
     "name": "parcel-plugin-structurize",
     "version": "2.4.2",
-    "private": true,
     "description": "A Parcel plugin that lets you customize your output (dist) directory structure.",
     "author": "Samrith Shankar <samrith@outlook.com> (https://twitter.com/tueieo)",
     "license": "MIT",
@@ -67,7 +66,6 @@
         "@typescript-eslint/parser": "^3.9.1",
         "babel-jest": "^26.3.0",
         "builtin-modules": "^3.1.0",
-        "chokidar-cli": "^2.1.0",
         "eslint": "^7.7.0",
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-import": "^2.22.0",
