@@ -23,7 +23,6 @@ export class FileManager extends ConfigProvider {
     constructor(assetsMap: AssetsGraphMap) {
         super();
         this.assetsMap = assetsMap;
-        console.log(assetsMap);
         this.moveTracker = {};
         this.moves = {
             total: Array.from(this.assetsMap.values()).filter(

@@ -19,7 +19,6 @@ export default function Structurize(bundler: ParcelBundler): void {
         bundler.on('bundled', bundle => {
             if (shouldRunPlugin()) {
                 logger.welcome();
-                console.log('welcome printed!');
                 const map = new AssetMap(bundle);
                 const fm = new FileManager(map.get());
                 fm.structurize();
