@@ -41,8 +41,8 @@ export class AssetMap extends ConfigProvider {
     }
 
     private getFile(depAsset: ParcelBundle): string {
-        const isRelative = !!depAsset.entryAsset?.relativeName;
-        return isRelative ? depAsset.entryAsset?.relativeName : path.basename(depAsset.name);
+        const isRelative = depAsset.type === 'html' && !!depAsset.entryAsset?.relativeName;
+        return isRelative ? depAsset.entryAsset.relativeName : path.basename(depAsset.name);
     }
 
     private iterativeDependencyResolver(depAsset: ParcelBundle): void {
