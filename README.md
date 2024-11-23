@@ -1,5 +1,8 @@
 # parcel-plugin-structurize
 
+> [!CAUTION]
+> This package is no longer actively maintained and only supports Parcel v1. There are many other alternatives and configurations provided, which you can use.
+
 [![npm (tag)](https://img.shields.io/npm/v/parcel-plugin-structurize)](https://npmjs.com/package/parcel-plugin-structurize)
 ![checks](https://github.com/samrith-s/parcel-plugin-structurize/workflows/checks/badge.svg?branch=main)
 
